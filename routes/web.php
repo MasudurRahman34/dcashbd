@@ -44,3 +44,7 @@ Route::POST('/userlogout', 'auth\LoginController@userlogout')->name('userlogout'
 
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

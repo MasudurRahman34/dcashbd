@@ -48,16 +48,7 @@ return [
         ],
         //for admin
 
-         'admin' => [
-            'driver' => 'session',
-            'provider' => 'admins',
-        ],
-
-        'api' => [
-            'driver' => 'token',
-            'provider' => 'users',
-            'hash' => false,
-        ],
+         
     ],
 
     /*
@@ -83,11 +74,6 @@ return [
             'model' => App\User::class,
         ],
         //for admin
-        'admins' => [
-            'provider' => 'admins',
-            'table' => 'password_resets',
-            'expire' => 60,
-        ],
 
         // 'users' => [
         //     'driver' => 'database',
