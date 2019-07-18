@@ -20,64 +20,25 @@
                     <th>Email</th>
                     <th>mobile Number</th>
                     <th>Address</th>
+                    <th>email verified</th>
                     <th>Status</th>
                   </tr>
                 </thead>
                 <tbody>
+                  @foreach ($users as $user)
+                    {{-- expr --}}
                   <tr>
-                    <td>2011/04/25</td>
-                    <td>01</td>
-                    <td>Ripon</td>
-                    <td>Email@gmail.com</td>
-                    <td>01740658791</td>
-                    <td>Shatkhira Kolaroya</td>
-                    <td>Active</td>
+                    <td>{{$user->created_at}}</td>
+                    <td>{{$user->id}}</td>
+                    <td>{{$user->name}}</td>
+                    <td>{{$user->email}}</td>
+                    <td>{{$user->mobile}}</td>
+                    <td>{{$user->address}}</td>
+                    <td>{{$user->email_verified_at==NULL ? 'No' : 'Yes'}}</td>
+                    <td>{{$user->email_verified_at==NULL ? 'Inactive' : 'Active'}}</td>
+                    
                   </tr>
-                  <tr>
-                   <td>2011/04/25</td>
-                    <td>01</td>
-                    <td>Ripon</td>
-                    <td>Email@gmail.com</td>
-                    <td>01740658791</td>
-                    <td>Shatkhira Kolaroya</td>
-                    <td>Active</td>
-                  </tr>
-                  <tr>
-                    <td>2011/04/25</td>
-                    <td>01</td>
-                    <td>Ripon</td>
-                    <td>Email@gmail.com</td>
-                    <td>01740658791</td>
-                    <td>Shatkhira Kolaroya</td>
-                    <td>Active</td>
-                  </tr>
-                  <tr>
-                    <td>2011/04/25</td>
-                    <td>01</td>
-                    <td>Ripon</td>
-                    <td>Email@gmail.com</td>
-                    <td>01740658791</td>
-                    <td>Shatkhira Kolaroya</td>
-                    <td>Active</td>
-                  </tr>
-                  <tr>
-                    <td>2011/04/25</td>
-                    <td>01</td>
-                    <td>Ripon</td>
-                    <td>Email@gmail.com</td>
-                    <td>01740658791</td>
-                    <td>Shatkhira Kolaroya</td>
-                    <td>Active</td>
-                  </tr>
-                  <tr>
-                    <td>2011/04/25</td>
-                    <td>01</td>
-                    <td>Ripon</td>
-                    <td>Email@gmail.com</td>
-                    <td>01740658791</td>
-                    <td>Shatkhira Kolaroya</td>
-                    <td>Active</td>
-                  </tr>
+                  @endforeach
                 </tbody>
               </table>
             </div>

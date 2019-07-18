@@ -43,7 +43,7 @@
             <h3 class="tile-title text-center">Your Referrale Link</h3>
             <hr>
            
-             <h6 class="text-center text-success" href="http://pratikborsadiya.in/blog/vali-admin" target="_blank">http://tdbsewallet.com/home/signup?user=kobirkhansatkhira7@gmail.com</h6>
+             <h6 class="text-center text-success" href="dcash.com" target="_blank">http://dcash.com/home/signup?user=MasudShuvo@gmail.com</h6>
             
           </div>
         </div>

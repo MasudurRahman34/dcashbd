@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\model\currency;
 use App\model\paymentmethod;
+use App\model\transaction;
+use App\User;
 
 class adminController extends Controller
 {
@@ -31,11 +33,22 @@ class adminController extends Controller
     }
     public function trnRequest()
     {
-        return view('backend.admin.trnRequest');
+
+        $transactions=transaction::orderBy('id', 'desc')->get();
+
+        return view('backend.admin.trnRequest')->with('transactions', $transactions);
+    }
+    public function trnsStatus( Request $request , $id)
+    {
+        $trns=transaction::find($id);
+        $trns->status=$request->status;
+        $trns->save();
+        return redirect()->route('trnRequest');
     }
     public function userlist()
     {
-        return view('backend.admin.userlist');
+        $users=User::orderBy('id', 'desc')->get();
+        return view('backend.admin.userlist')->with('users', $users);
     }
     public function adminlist()
     {
@@ -44,6 +57,11 @@ class adminController extends Controller
     public function adminProfile()
     {
         return view('backend.admin.adminProfile');
+    }
+    public function userProfile($id)
+    {
+       $user = User::where('id', $id)->first();
+        return view('backend.admin.userProfile', compact('user'));
     }
     public function notice()
     {
@@ -68,7 +86,7 @@ class adminController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       
     }
 
     /**

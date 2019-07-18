@@ -25,41 +25,37 @@
           <div class="tile">
             <!-- <h3 class="tile-title">Register</h3> -->
             <div class="tile-body">
-              <form class="form-horizontal" action="kasf" method="post">
+             <form class="form-horizontal" action="{{ route('transaction.store') }}" method="POST">
+                @csrf
                 <div class="form-group row">
-                  <label class="control-label col-md-4">Send Method<sup id="apendRate" style="font-size: 12px; color: red;"></sup></label>
+                  <label class="control-label col-md-4">Send Method<!-- <sup id="apendRate" style="font-size: 12px; color: red;"></sup> --></label>
                    <div class="col-md-8">
-                    <select class="form-control col-md-8" id="paymentMathod">
-                      <option >Select Send Method</option>
-                      <option value="83">Perfect Money</option>
-                      <option value="84">Coinbase</option>
-                      <option value="86">LiteCoin</option>
-                      <option value="87">Ethereum</option>
-                      <option value="80">BCH USD</option>
-                      <option value="82.7">ETH USD</option>
-                      <option value="85">0x(ZRX)</option>                  <option value="88">BSV USD</option>
-                      <option value="88">XRP Wallet</option>
+                    <select class="form-control col-md-8" id="paymentMathod" required>
+                      <option ></option>
+                      @foreach (App\model\currency::where('type', '3')->get() as $cur)
+                            <option value="{{$cur->rate}}" id="{{$cur->minValue}}" class="{{$cur->address}}"><span id="{{$cur->rate}}"></span> {{$cur->name}}</option>
+                          @endforeach
                   </select>
                   </div>
                 </div>
+                <input type="text" name="sendMethod" value="sdfg"  id="snMethod" hidden>
+                <input type="text" name="recieveMethod" value="asd"  id="rcMethod" hidden>
+                <input type="text" name="type" value="Exchange" hidden>
                 <div class="form-group row">
-                  <label class="control-label col-md-4">Recieve Method</label>
+                  <label class="control-label col-md-4">Recieve Method <sup id="apendRate" style="font-size: 12px; color: red;"></sup></label>
                   <div class="col-md-8">
-                    <select class="form-control col-md-8" id="sendMathod">
-                      <option value="83">Perfect Money</option>
-                      <option value="84">Coinbase</option>
-                      <option value="86">LiteCoin</option>
-                      <option value="87">Ethereum</option>
-                      <option value="80">BCH USD</option>
-                      <option value="82.7">ETH USD</option>
-                      <option value="88">XRP Wallet</option>
+                    <select class="form-control col-md-8" id="sendMathod" required>
+                      <option ></option>
+                      @foreach (App\model\currency::where('type', '3')->get() as $cur)
+                            <option value="{{$cur->rate}}" id="{{$cur->minValue}}" class="{{$cur->commission}}">{{$cur->name}}</option>
+                          @endforeach
                   </select>
                   </div>
                 </div>
                 <div class="form-group row">
                   <label class="control-label col-md-4">Send Amount<sup id="apendmin" style="font-size: 12px; color: red;"></sup></label>
                   <div class="col-md-8">
-                    <input class="form-control" type="number" id="recieveAmount"  >
+                    <input class="form-control" type="number" name="amount" id="recieveAmount" required>
                   </div>
                 </div>
                 <div class="form-group row">
@@ -72,13 +68,13 @@
                   <label class="control-label col-md-4"> <mark id="apendPaymentMethod"></mark> Email </label>
                   
                   <div class="col-md-8">
-                    <input class="form-control" type="email" placeholder="Enter Email">
+                    <input class="form-control" name="email" type="email" placeholder="Enter Email">
                   </div>
                 </div>
                 <div class="form-group row">
                   <label class="control-label col-md-4"><span class="SendBy"> </span> Email/Id</label>
                   <div class="col-md-8">
-                    <input class="form-control" type="text" name="trns_number" id="test">
+                    <input class="form-control" type="text" name="number" id="test" required>
                   </div>
                 </div>
                 <div class="form-group row">
@@ -119,90 +115,47 @@
       $(document).ready(function(){
         $('#sendMathod').change(function(){
           var smethodText=$('#sendMathod option:selected').text();
+          var smethodVal=$('#sendMathod option:selected').val();
+          $('#rcMethod').attr('value', smethodText);
+
+
+           var commission=parseFloat($('#sendMathod option:selected').attr('class'));
+           $('#apendRate').text('*1$ = '+smethodVal+ 'TK');
            $('.SendBy').text(smethodText);
-          });
-       
-          $('#paymentMathod').change(function(){
-           var pmethodText=$('#paymentMathod option:selected').text();
-           var pmethodValue=$('#paymentMathod option:selected').val();
-           $('.paymentBy').text(pmethodText);
-           $('#apendRate').text('*1$ = '+pmethodValue+ 'TK');
-           console.log(pmethodValue);
-            
-           $('#apendPaymentMethod').text(pmethodText);
-
-           switch (pmethodText){
-              case 'Coinbase':
-                $('#recieveAmount').attr('min', 2);
-                  $('#apendmin').text( '*minimum 2');
-                  $('b').text('Coinbase Email : Coinbase@email.com');
-                  break;
-              case 'Perfect Money':
-                $('#recieveAmount').attr('min', 2);
-                  $('#apendmin').text( '*minimum 2 $/doge');
-                  $('b').text('Perfect Money Id: U234235');
-                  break;
-              case 'LiteCoin':
-                $('#recieveAmount').attr('min', 2);
-                  $('#apendmin').text( '*minimum 2');
-                  $('b').text('LiteCoin Email : LiteCoin@email.com');
-                break;
-              case 'Ethereum':
-                $('#recieveAmount').attr('min', 2);
-                  $('#apendmin').text( '*minimum 2');
-                  $('b').text('Ethereum Email : Ethereum@email.com');
-                  break;
-              
-        case 'BCH USD':
-                $('#recieveAmount').attr('min', 2);
-                  $('#apendmin').text( '*minimum 2');
-                  $('b').text('BCH USD Email/ID: qqekmuf7eyu7us206cguyvtrgn5j85qadqkevq97ar (coinbase mail ) rahman196412@gmail.com');
-                  break;
-               case 'ETH USD':
-                $('#recieveAmount').attr('min', 2);
-                  $('#apendmin').text( '*minimum 2');
-                  $('b').text('ETC USD Email/ID: 0x16cEed58EbBE76f5F952bb99fCb84f969020C69B (coinbasemail) rahman196412@gmail.com');
-                  break;
-
-                  case '0x(ZRX)':
-                $('#recieveAmount').attr('min', 2);
-                  $('#apendmin').text( '*minimum 2');
-                  $('b').text('0x (ZRX) Email/ID: 0x057A42e7E9D11c7F09F2692D7c671E8BCF2dBBfd (coinbase mail ) rahman196412@gmail.com');
-                  break;
-                  case 'BSV USD':
-                $('#recieveAmount').attr('min', 1);
-                  
-                  $('b').text('BSV USD Email/ID: rahman196412@gmail.com ( coinbase mail )');
-                  break;
-                  case 'XRP Wallet':
-                $('#recieveAmount').attr('min', 2);
-                  $('#apendmin').text( '*minimum 2');
-                  $('b').text('XRP Wallet Email/ID: rw2ciyaNshpHe7bCHo4bRWq6pqqynnWKQg (XRP Tag:1294144053) (coinbase mail) rahman196412@gmail.com');
-                  break;
-
-
-              default:
-                $('#recieveAmount').attr('min', 1);
-                  $('#apendmin').text( '');
-           }
-            
-            pmethod=$(this).val();
-            pmethod=parseFloat(pmethod);
-            recieveAmount= $('#recieveAmount').val();
+           recieveAmount= $('#recieveAmount').val();
             recieveAmount=parseFloat(recieveAmount);
            t=recieveAmount*(1-.12);
             $('#total').val(t);
             $('#recieveAmount').change(function(){
                 recieveAmount= $(this).val();
                 recieveAmount=parseFloat(recieveAmount);
-                t=recieveAmount*(1-.12);
+                t=(recieveAmount*(1-commission)).toFixed(2);
                 $('#total').val(t);
                  
               });
-            
+          });
+       
+          $('#paymentMathod').change(function(){
+
+           var pmethodText=$('#paymentMathod option:selected').text();
+           $('#snMethod').attr('value', pmethodText);
+           
+
+           var pmethodValue=$('#paymentMathod option:selected').val();
+          var minValue=parseInt($('#paymentMathod option:selected').attr('id'));
+           var address=$('#paymentMathod option:selected').attr('class');
+           $('.paymentBy').text(pmethodText);
+          /* $('#apendRate').text('*1$ = '+smethodVal+ 'TK');*/
+          
+           $('#apendPaymentMethod').text(pmethodText);
+
+           $('#recieveAmount').attr('min', minValue);
+                  $('#apendmin').text( '*minimum '+ minValue);
+                  $('b').text(pmethodText +' Email/ID : '+address);
+
             });
           
         });
 
     </script>
-      @endsection
+ @endsection

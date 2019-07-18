@@ -14,11 +14,12 @@
           <div class="tile">
             <!-- <h3 class="tile-title">Register</h3> -->
             <div class="tile-body">
-              <form class="form-horizontal" action="riw" method="post">
+              <form class="form-horizontal" action="{{ route('transaction.store') }}" method="POST">
+                @csrf
                 <div class="form-group row">
                   <label class="control-label col-md-4">Send Method</label>
                    <div class="col-md-8">
-                    <select class="form-control col-md-8" id="paymentMathod" required>
+                    <select class="form-control col-md-8" name="sendMethod" id="paymentMathod" required>
                       <option></option>
                       @foreach (App\model\currency::where('type', '2')->get() as $cur)
                             <option value="{{$cur->rate}}" id="{{$cur->minValue}}" class="{{$cur->address}}">{{$cur->name}}</option>
@@ -26,13 +27,14 @@
                   </select>
                   </div>
                 </div>
+                <input type="text" name="type" value="Sell" hidden>
                  <div class="form-group row">
                   <label class="control-label col-md-4">Recieve Method</label>
                   <div class="col-md-8">
-                    <select class="form-control col-md-8" id="sendMathod" required>
+                    <select class="form-control col-md-8" name="recieveMethod" id="sendMathod" required>
                       <option></option>
                        @foreach (App\model\paymentmethod::where('type', '2')->get() as $pm)
-                            <option id="{{$pm->address}}">{{$pm->name}}</option>
+                            <option id="{{$pm->address}}" value="{{$pm->name}}">{{$pm->name}}</option>
                           @endforeach
                   </select>
                   </div>
@@ -47,20 +49,20 @@
                 <div class="form-group row">
                   <label class="control-label col-md-4" >Recieve Amount </label>
                   <div class="col-md-8">
-                    <input class="form-control" type="number" id="total" readonly>
+                    <input class="form-control" name="amount" type="number" id="total" readonly>
                   </div>
                 </div>
                 <div class="form-group row">
                   <label class="control-label col-md-4"><span class="SendBy"> </span> Number</label>
                   <div class="col-md-8">
-                    <input class="form-control" type="text" minlength="11" name="trns_number"  required>
+                    <input class="form-control" type="number" type="text" minlength="11" name="trns_number"  required>
                   </div>
                 </div>
                  <div class="form-group row">
                   <label class="control-label col-md-4"> <mark id="apendPaymentMethod"></mark> Email </label>
                   
                   <div class="col-md-8">
-                    <input class="form-control" type="email" placeholder="Enter Email" required>
+                    <input class="form-control" name="email" type="email" placeholder="Enter Email" required>
                   </div>
                 </div>
 

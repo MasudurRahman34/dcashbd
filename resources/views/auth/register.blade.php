@@ -77,12 +77,12 @@
                       <textarea class="form-control" name="address" rows="2" placeholder="Enter your address...country, postal code, hometown" required></textarea>
                     </div>
                   </div>
-                  <div class="form-group row">
+                  <!-- <div class="form-group row">
                     <label class="control-label col-md-6">Identity Proof/ Nid card/ Birth Certificate</label>
                     <div class="col-md-6">
                       <input class="form-control" name="idprof" type="file">
                     </div>
-                  </div>
+                  </div> -->
                   <div class="form-group row">
                     <div class="col-md-8 col-md-offset-2">
                       <div class="form-check">

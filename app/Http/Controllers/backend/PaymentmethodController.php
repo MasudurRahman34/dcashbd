@@ -61,9 +61,17 @@ class PaymentmethodController extends Controller
      * @param  \App\model\paymentmethod  $paymentmethod
      * @return \Illuminate\Http\Response
      */
-    public function edit(paymentmethod $paymentmethod)
+    public function edit(Request $request, $id)
+
     {
-        //
+         $pm=paymentmethod::find($id);
+                $pm->name= $request->name;
+                $pm->type= $request->type;
+                $pm->address= $request->address;
+                $pm->slug= str_slug($pm->name.$pm->type);
+                $pm->status= $request->status;
+                $pm->Save();
+        return redirect()->route('paymentMethod');
     }
 
     /**

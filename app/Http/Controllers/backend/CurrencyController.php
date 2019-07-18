@@ -40,6 +40,7 @@ class CurrencyController extends Controller
                 $cur->type= $request->type;
                 $cur->rate= $request->rate;
                 $cur->minValue= $request->minValue;
+                $cur->commission= $request->commission;
                 $cur->address= $request->address;
                 $cur->slug= str_slug($cur->name.$cur->type);
                 $cur->Save();
@@ -63,9 +64,19 @@ class CurrencyController extends Controller
      * @param  \App\model\currency  $currency
      * @return \Illuminate\Http\Response
      */
-    public function edit(currency $currency)
+    public function edit(Request $request, $id)
     {
-        //
+                $cur=currency::find($id);
+                $cur->name= $request->name;
+                $cur->type= $request->type;
+                $cur->rate= $request->rate;
+                $cur->minValue= $request->minValue;
+                $cur->commission= $request->commission;
+                $cur->address= $request->address;
+                $cur->status= $request->status;
+                $cur->slug= str_slug($cur->name.$cur->type);
+                $cur->Save();
+                return redirect()->route('currency');
     }
 
     /**

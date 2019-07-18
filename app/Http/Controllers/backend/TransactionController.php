@@ -1,19 +1,13 @@
 <?php
 
 namespace App\Http\Controllers\backend;
-
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\model\transaction;
-use App\User;
+use Illuminate\Http\Request;
 use Auth;
 
-class userController extends Controller
+class TransactionController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware(['auth','verified']);
-    }
     /**
      * Display a listing of the resource.
      *
@@ -21,28 +15,7 @@ class userController extends Controller
      */
     public function index()
     {
-        return view('backend.user.index');
-    }
-    public function buy()
-    {
-        return view('backend.user.buy');
-    }
-    public function sell()
-    {
-        return view('backend.user.sell');
-    }
-    public function exchange()
-    {
-        return view('backend.user.exchange');
-    }
-    public function transaction()
-    {
-        $user = User::where('id', Auth::user()->id)->first();
-        return view('backend.user.transaction', compact('user'));
-    }
-    public function profile()
-    {
-        return view('backend.user.profile');
+        
     }
 
     /**
@@ -63,16 +36,27 @@ class userController extends Controller
      */
     public function store(Request $request)
     {
-        //
+         $trns=new transaction;
+                $trns->userId= Auth::user()->id;
+                $trns->type= $request->type;
+                $trns->sendMethod= $request->sendMethod;
+                $trns->recieveMethod= $request->recieveMethod;
+                $trns->amount= $request->amount;
+                $trns->trnasID= $request->trnasID;
+                $trns->email= $request->email;
+                $trns->number= $request->number;
+                $trns->Save();
+                return redirect()->route('transaction');
+                /*return redirect()->route('currency');*/
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\model\transaction  $transaction
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(transaction $transaction)
     {
         //
     }
@@ -80,10 +64,10 @@ class userController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\model\transaction  $transaction
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(transaction $transaction)
     {
         //
     }
@@ -92,10 +76,10 @@ class userController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\model\transaction  $transaction
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, transaction $transaction)
     {
         //
     }
@@ -103,10 +87,10 @@ class userController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\model\transaction  $transaction
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(transaction $transaction)
     {
         //
     }

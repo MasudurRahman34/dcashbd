@@ -9,8 +9,8 @@
     
       <div class="app-title">
         <div>
-          <h1><i class="fa fa-dashboard"></i> Dashboard</h1>
-          <p>Dcasbd</p>
+          <h1><i class="fa fa-dashboard"></i> Admin Dashboard</h1>
+          <p>Dcasbd.com</p>
         </div>
       </div>
       <div class="row">

@@ -20,6 +20,7 @@ class CreateCurrenciesTable extends Migration
             $table->string('slug');
             $table->float('rate')->nullable();
             $table->integer('minValue')->nullable();
+            $table->float('commission')->nullable()->comment('exchange');
             $table->string('address')->nullable();
             $table->string('status')->default(0)->comment("0=active, 1=inactive");
             $table->timestamps();

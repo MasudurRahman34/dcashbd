@@ -12,11 +12,13 @@
           <div class="tile">
               <!-- <h3 class="tile-title">Register</h3> -->
             <div class="tile-body">
-              <form class="form-horizontal">
+              <form class="form-horizontal" action="{{ route('transaction.store') }}" method="POST">
+                @csrf
+
                     <div class="form-group row">
                       <label class="control-label col-md-4">Send Method</label>
                       <div class="col-md-8">
-                        <select class="form-control col-md-8" id="sendMathod" required>
+                        <select name="sendMethod" class="form-control col-md-8" id="sendMathod" required>
                           <option></option>
                           @foreach (App\model\paymentmethod::where('type', '1')->get() as $pm)
                             <option id="{{$pm->address}}">{{$pm->name}}</option>
@@ -24,13 +26,14 @@
                       </select>
                       </div>
                     </div>
+                    <input type="text" name="type" value="Buy" hidden>
                     <div class="form-group row">
                       <label class="control-label col-md-4">Recieve Method</label>
                        <div class="col-md-8">
-                        <select class="form-control col-md-8" id="paymentMathod"  required>
+                        <select name="recieveMethod" class="form-control col-md-8" id="paymentMathod"  required>
                           <option></option>
                           @foreach (App\model\currency::where('type', '1')->get() as $cur)
-                            <option value="{{$cur->rate}}" id="{{$cur->minValue}}">{{$cur->name}}</option>
+                            <option value="{{$cur->name}}" id="{{$cur->minValue}}" class="{{$cur->rate}}">{{$cur->name}}</option>
                           @endforeach
                       </select>
                       </div>
@@ -38,7 +41,7 @@
                     <div class="form-group row">
                       <label class="control-label col-md-4">Send Amount</label>
                       <div class="col-md-8">
-                        <input class="form-control" type="text" id="total" readonly>
+                        <input class="form-control" name="amount" type="text" id="total" readonly>
                       </div>
                     </div>
                     <div class="form-group row">
@@ -50,20 +53,20 @@
                     <div class="form-group row">
                       <label class="control-label col-md-4"><span class="paymentBy"> </span> Number</label>
                       <div class="col-md-8">
-                        <input class="form-control" type="text" name="trns_number" minlength="11" required>
+                        <input class="form-control" type="text" name="number" minlength="11" required>
                       </div>
                     </div>
                     <div class="form-group row" id="hidetranx">
                       <label class="control-label col-md-4"><span class="paymentBy"> </span> Transaction ID</label>
                       <div class="col-md-8">
-                        <input class="form-control" type="text" minlength="11" id="Transaction_id" placeholder="Transaction_id" required>
+                        <input class="form-control" name="trnasID" type="text" minlength="11" id="Transaction_id" placeholder="Transaction_id" required>
                       </div>
                     </div>
                      <div class="form-group row">
                       <label class="control-label col-md-4"> <mark id="apendPaymentMethod"></mark> Email </label>
                       
                       <div class="col-md-8">
-                        <input class="form-control" type="email" placeholder="Enter Email" required>
+                        <input class="form-control" name="email" type="email" placeholder="Enter Email" required>
                       </div>
                     </div>
                     <div class="form-group row">
@@ -127,6 +130,7 @@
           $('#paymentMathod').change(function(){
            var pmethodText=$('#paymentMathod option:selected').text();
            var pmethodmin=$('#paymentMathod option:selected').attr('id');
+           var sendVal=$('#paymentMathod option:selected').attr('class');
            pmethodmin=parseInt(pmethodmin);
             
            $('#apendPaymentMethod').text(pmethodText);
@@ -135,16 +139,16 @@
               $('#recieveAmount').attr('min', pmethodmin);
               $('#apendmin').text( '*minimum '+pmethodmin);
 
-            pmethod=$(this).val();
-            pmethod=parseFloat(pmethod);
+            
+            sendVal=parseFloat(sendVal);
             recieveAmount= $('#recieveAmount').val();
             recieveAmount=parseFloat(recieveAmount);
-            t=pmethod*recieveAmount;
+            t=sendVal*recieveAmount;
             $('#total').val(t);
             $('#recieveAmount').change(function(){
                 recieveAmount= $(this).val();
                 recieveAmount=parseFloat(recieveAmount);
-                t=pmethod*recieveAmount;
+                t=sendVal*recieveAmount;
                 $('#total').val(t);
                  
               });
