@@ -1,6 +1,12 @@
 @extends('backend.layouts.master')
 
     @section('content')
+    <style type="text/css">
+      img.flag { height: 40px;
+    width: 50px;
+    padding-right: 5px;
+    padding-bottom: 3px; }
+    </style>
 <div class="app-title" style="margin-bottom: 2px;">
         <div>
           <h1><i class="fa fa-edit"></i> Buy Order</h1>
@@ -18,10 +24,10 @@
                     <div class="form-group row">
                       <label class="control-label col-md-4">Send Method</label>
                       <div class="col-md-8">
-                        <select name="sendMethod" class="form-control col-md-8" id="sendMathod" required>
+                        <select name="sendMethod" class="form-control col-md-11" id="sendMathod" required>
                           <option></option>
-                          @foreach (App\model\paymentmethod::where('type', '1')->get() as $pm)
-                            <option id="{{$pm->address}}">{{$pm->name}}</option>
+                          @foreach (App\model\paymentmethod::where('type', '1')->orderby('id', 'desc')->get() as $pm)
+                            <option id="{{$pm->address}}" selected>{{$pm->name}}</option>
                           @endforeach
                       </select>
                       </div>
@@ -30,7 +36,7 @@
                     <div class="form-group row">
                       <label class="control-label col-md-4">Recieve Method</label>
                        <div class="col-md-8">
-                        <select name="recieveMethod" class="form-control col-md-8" id="paymentMathod"  required>
+                        <select name="recieveMethod" class="form-control col-md-12" id="paymentMathod"  required>
                           <option></option>
                           @foreach (App\model\currency::where('type', '1')->get() as $cur)
                             <option value="{{$cur->name}}" id="{{$cur->minValue}}" class="{{$cur->rate}}">{{$cur->name}}</option>
@@ -82,9 +88,9 @@
                     <div class="row">
                       <div class="col-md-12 bg-warning">
                         <p class="text-center" style="padding: 10px; font-size: 15px;">নিচের <span class="paymentBy"> Bkash </span> নাম্বারে টাকা পাঠানোর পর Submit Button-এ ক্লিক করুন ।<br> <br>
-                                  <b class="bg-success" style="padding: 5px;">Cash Out From :
+                                  <strong class="bg-success" style="padding: 5px;">Cash Out From :
                                    017501488547
-                                  (Agent Number)</b>
+                                  (Agent Number)</strong>
                               </p>
                       </div>
                     </div>
@@ -104,22 +110,51 @@
     @endsection
 
     @section('script')
+      
+<script src="{{ asset('admin/js/plugins//select2.min.js') }}" ></script>
       <script type="text/javascript">
+        function formatState (state) {
+  if (!state.id) {
+    return state.text;
+  }
+  var baseUrl = "{{ asset('img/currency') }}";
+  var $state = $(
+    '<span><img src="' + baseUrl + '/' + state.element.value.toLowerCase() + '.jpg" class="flag" /> ' + state.text + '</span>'
+  );
+  return $state;
+};
+
+$("#sendMathod, #paymentMathod").select2({
+  width: '100%',
+
+   templateSelection: formatState
+    
+});
+       
            
       $(document).ready(function(){
+
+
+
+         //select 2
+        
+        //
+
+
+
         $('#sendMathod').change(function(){
           var smethodText=$('#sendMathod option:selected').text();
           var smethodNumber=$('#sendMathod option:selected').attr('id');
            $('.paymentBy').text(smethodText);
            if (smethodText=="Coinbase (Perfect Money 2") {
-            $('b').text(smethodNumber);
+            $('strong').text(smethodNumber);
            } else{
-            $('b').text('Cash Out From : '+smethodNumber+' Agent Number');
+            $('strong').text('Cash Out From : '+smethodNumber+' Agent Number');
            }
            if (smethodText=="Brac Bank") {
             $('#hidetranx').hide();
             $('#Transaction_id').prop("disabled", true);
-            $('b').text(smethodNumber);
+            $('strong').text(smethodNumber);
            }else{
             $('#hidetranx').show();
              $('#Transaction_id').prop("disabled", false);
@@ -140,13 +175,24 @@
               $('#apendmin').text( '*minimum '+pmethodmin);
 
             
-            sendVal=parseFloat(sendVal);
+            
             recieveAmount= $('#recieveAmount').val();
+            sendVal=parseFloat(sendVal);
             recieveAmount=parseFloat(recieveAmount);
             t=sendVal*recieveAmount;
             $('#total').val(t);
+            $('#recieveAmount').keyup(function(){
+                recieveAmount= $(this).val();
+                var sendVal=parseFloat($('#paymentMathod option:selected').attr('class'));
+                recieveAmount=parseFloat(recieveAmount);
+                t=sendVal*recieveAmount;
+                $('#total').val(t);
+                 
+              });
+            
             $('#recieveAmount').change(function(){
                 recieveAmount= $(this).val();
+                
                 recieveAmount=parseFloat(recieveAmount);
                 t=sendVal*recieveAmount;
                 $('#total').val(t);

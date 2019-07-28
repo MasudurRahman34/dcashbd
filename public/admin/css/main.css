@@ -11653,7 +11653,7 @@ body.stop-scrolling {
 
 .select2-container .select2-selection--single .select2-selection__rendered {
   display: block;
-  padding-left: 8px;
+ /*  padding-left: 8px; */ /* overight */
   padding-right: 20px;
   overflow: hidden;
   -o-text-overflow: ellipsis;

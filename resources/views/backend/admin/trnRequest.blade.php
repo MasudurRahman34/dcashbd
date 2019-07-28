@@ -23,7 +23,7 @@
                 <tr>
                   <th>Date</th>
                   <th>UserId</th>
-                  <th>Name</th>
+                  <!-- <th>Name</th> -->
                   <th>Transaction Type</th>
                   <th>Send Method</th>
                   <th>Receive Method</th>
@@ -39,7 +39,7 @@
                 <tr>
                   <td>{{$trns->created_at}}</td>
                   <td>{{$trns->userId}}</td>
-                  <td><a href="{{ route('userProfile', $trns->userId) }}">{{$trns->user->name}}</a></td>
+                  <!-- <td><a href="{{ route('userProfile', $trns->userId) }}">{{$trns->user->name}}</a></td> -->
                   <td>{{$trns->type}}</td>
                   <td>{{$trns->sendMethod}}</td>
                   <td>{{$trns->recieveMethod}}</td>
