@@ -1,5 +1,13 @@
 @extends('backend.layouts.master')
 @section('content')
+  <style type="text/css">
+    img.flag {
+    background: #ccc;
+    height: 37px;
+    width: 48px;
+    padding: 2px;
+    margin-bottom: 4px;}
+    </style>
 <div class="app-title" style="margin-bottom: 2px;">
         <div>
           <h1 class="text-primary"><i class="fa fa-edit text-danger"></i> Sell Order</h1>
@@ -22,7 +30,7 @@
                     <select class="form-control col-md-8" name="sendMethod" id="paymentMathod" required>
                       <option></option>
                       @foreach (App\model\currency::where('type', '2')->get() as $cur)
-                            <option value="{{$cur->rate}}" id="{{$cur->minValue}}" class="{{$cur->address}}">{{$cur->name}}</option>
+                            <option value="{{$cur->name}}" data-id="{{$cur->rate}}" id="{{$cur->minValue}}" class="{{$cur->address}}">{{$cur->name}}</option>
                           @endforeach
                   </select>
                   </div>
@@ -43,7 +51,7 @@
                 <div class="form-group row">
                   <label class="control-label col-md-4">Send Amount  <sup id="apendmin" style="font-size: 13px; color: red;"></sup></label>
                   <div class="col-md-8">
-                    <input class="form-control" type="number" id="recieveAmount"  required>
+                    <input class="form-control" type="number" name="givenAmount" id="recieveAmount" value="1"  required>
                   </div>
                 </div>
                 <div class="form-group row">
@@ -59,10 +67,10 @@
                   </div>
                 </div>
                  <div class="form-group row">
-                  <label class="control-label col-md-4"> <mark id="apendPaymentMethod"></mark> Email </label>
+                  <label class="control-label col-md-4"> <mark id="apendPaymentMethod"></mark> Email/ID </label>
                   
                   <div class="col-md-8">
-                    <input class="form-control" name="email" type="email" placeholder="Enter Email" required>
+                    <input class="form-control" name="email" type="text" placeholder="Enter Email/ID" required>
                   </div>
                 </div>
 
@@ -80,9 +88,9 @@
               <div class="row">
                 <div class="col-md-12 bg-warning">
                   <p class="text-center" style="padding: 10px; font-size: 15px;">নিচের <span class="paymentBy"> </span> আইডি তে  টাকা পাঠানোর পর Submit Button-এ ক্লিক করুন ।<br> <br>
-                            <b class="bg-success text-light" style="padding:10px;">Skrill Email :
+                            <strong class="bg-success text-light" style="padding:10px;">Skrill Email :
                              Skrill@Email.Com
-                            </b>
+                            </strong>
                         </p>
                 </div>
               </div>
@@ -101,7 +109,25 @@
       </div>
       @endsection
       @section('script')
+      <script src="{{ asset('admin/js/plugins//select2.min.js') }}" ></script>
       <script type="text/javascript">
+       //select2 image
+        function formatState (state) {
+          if (!state.id) {
+            return state.text;
+          }
+          var baseUrl = "{{ asset('img/currency') }}";
+          var $state = $(
+            '<span><img src="' + baseUrl + '/' + state.element.value.toLowerCase() + '.jpg" class="flag" /> ' + state.text + '</span>'
+            );
+          return $state;
+        };
+        $("#sendMathod, #paymentMathod").select2({
+          width: '100%',
+          templateSelection: formatState   
+        });
+
+      //End select2 image
       $(document).ready(function(){
         $('#sendMathod').change(function(){
           var smethodText=$('#sendMathod option:selected').text();
@@ -112,6 +138,7 @@
            var pmethodText=$('#paymentMathod option:selected').text();
            var minValue=parseInt($('#paymentMathod option:selected').attr('id'));
            var address=$('#paymentMathod option:selected').attr('class');
+           var pmethod=$('#paymentMathod option:selected').attr('data-id');
   
            var recieveAmount= $('#recieveAmount').val();
 
@@ -121,13 +148,20 @@
 
            $('#recieveAmount').prop('min', minValue);
                   $('#apendmin').text( '*minimum' + minValue);
-                  $('b').text('Email/id : '+ address);
+                  $('strong').text('Email/id : '+ address);
             
-            pmethod=$(this).val();
             pmethod=parseFloat(pmethod);
             recieveAmount=parseFloat(recieveAmount);
             t=pmethod*recieveAmount;
             $('#total').val(t);
+
+            $('#recieveAmount').keyup(function(){
+              recieveAmount= $(this).val();
+              var sendVal=parseFloat($('#paymentMathod option:selected').attr('data-id'));
+              recieveAmount=parseFloat(recieveAmount);
+              t=sendVal*recieveAmount;
+              $('#total').val(t);
+            });
             $('#recieveAmount').change(function(){
                 var recieveAmount= $(this).val();
                 recieveAmount=parseFloat(recieveAmount);

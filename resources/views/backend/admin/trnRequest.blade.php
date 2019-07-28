@@ -39,7 +39,7 @@
                 <tr>
                   <td>{{$trns->created_at}}</td>
                   <td>{{$trns->userId}}</td>
-                  <!-- <td><a href="{{ route('userProfile', $trns->userId) }}">{{$trns->user->name}}</a></td> -->
+                  <td><a href="{{ route('userProfile', $trns->userId) }}">{{ $trns->user->id}}</a></td>
                   <td>{{$trns->type}}</td>
                   <td>{{$trns->sendMethod}}</td>
                   <td>{{$trns->recieveMethod}}</td>

@@ -19,7 +19,8 @@ class CreateTransactionsTable extends Migration
             $table->string('type')->comment('buy, sell, exchange');
             $table->string('sendMethod');
             $table->string('recieveMethod');
-            $table->string('amount');
+            $table->float('givenAmount');
+            $table->float('amount');
             $table->string('trnasID')->nullable();
             $table->string('number')->nullable();
             $table->string('email')->nullable();

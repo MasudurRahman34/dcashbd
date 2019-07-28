@@ -20,7 +20,7 @@ Route::get('/buy', 'backend\userController@buy')->name('buy');
 Route::get('/sell', 'backend\userController@sell')->name('sell');
 Route::get('/exchange', 'backend\userController@exchange')->name('exchange');
 Route::get('/transaction', 'backend\userController@transaction')->name('transaction');
-Route::post('/transaction', 'backend\TransactionController@store')->name('transaction.store');
+Route::post('/transaction/store', 'backend\TransactionController@store')->name('transaction.store');
 Route::get('/profile', 'backend\userController@profile')->name('profile');
 
 //admin

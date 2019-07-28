@@ -42,6 +42,7 @@ class TransactionController extends Controller
                 $trns->sendMethod= $request->sendMethod;
                 $trns->recieveMethod= $request->recieveMethod;
                 $trns->amount= $request->amount;
+                $trns->givenAmount= $request->givenAmount;
                 $trns->trnasID= $request->trnasID;
                 $trns->email= $request->email;
                 $trns->number= $request->number;

@@ -2,10 +2,12 @@
 
     @section('content')
     <style type="text/css">
-      img.flag { height: 40px;
-    width: 50px;
-    padding-right: 5px;
-    padding-bottom: 3px; }
+    img.flag {
+    background: #ccc;
+    height: 37px;
+    width: 48px;
+    padding: 2px;
+    margin-bottom: 4px; }
     </style>
 <div class="app-title" style="margin-bottom: 2px;">
         <div>
@@ -53,7 +55,7 @@
                     <div class="form-group row">
                       <label class="control-label col-md-4" >Recieve Amount <sup id="apendmin" style="font-size: 13px; color: red;"></sup></label>
                       <div class="col-md-8">
-                        <input class="form-control" type="number" value="1" id="recieveAmount"  required>
+                        <input class="form-control" type="number" name="givenAmount" value="1" id="recieveAmount"  required>
                       </div>
                     </div>
                     <div class="form-group row">
@@ -69,10 +71,10 @@
                       </div>
                     </div>
                      <div class="form-group row">
-                      <label class="control-label col-md-4"> <mark id="apendPaymentMethod"></mark> Email </label>
+                      <label class="control-label col-md-4"> <mark id="apendPaymentMethod"></mark> Email/ID </label>
                       
                       <div class="col-md-8">
-                        <input class="form-control" name="email" type="email" placeholder="Enter Email" required>
+                        <input class="form-control" name="email" type="text" placeholder="Enter Email/ID" required>
                       </div>
                     </div>
                     <div class="form-group row">
@@ -112,98 +114,89 @@
     @section('script')
       
 <script src="{{ asset('admin/js/plugins//select2.min.js') }}" ></script>
-      <script type="text/javascript">
-        function formatState (state) {
-  if (!state.id) {
-    return state.text;
-  }
-  var baseUrl = "{{ asset('img/currency') }}";
-  var $state = $(
-    '<span><img src="' + baseUrl + '/' + state.element.value.toLowerCase() + '.jpg" class="flag" /> ' + state.text + '</span>'
-  );
-  return $state;
-};
+<script type="text/javascript">
+ //select2 image
+  function formatState (state) {
+    if (!state.id) {
+      return state.text;
+    }
+    var baseUrl = "{{ asset('img/currency') }}";
+    var $state = $(
+      '<span><img src="' + baseUrl + '/' + state.element.value.toLowerCase() + '.jpg" class="flag" /> ' + state.text + '</span>'
+      );
+    return $state;
+  };
+  $("#sendMathod, #paymentMathod").select2({
+    width: '100%',
+    templateSelection: formatState   
+  });
 
-$("#sendMathod, #paymentMathod").select2({
-  width: '100%',
-
-   templateSelection: formatState
-    
-});
-       
-           
-      $(document).ready(function(){
+//End select2 image
+  $(document).ready(function(){
 
 
+    $('#sendMathod').change(function(){
+      var smethodText=$('#sendMathod option:selected').text();
+      var smethodNumber=$('#sendMathod option:selected').attr('id');
+      $('.paymentBy').text(smethodText);
+      if (smethodText=="Coinbase (Perfect Money 2") {
+        $('strong').text(smethodNumber);
+      } else{
+        $('strong').text('Cash Out From : '+smethodNumber+' Agent Number');
+      }
+      if (smethodText=="Brac Bank") {
+        $('#hidetranx').hide();
+        $('#Transaction_id').prop("disabled", true);
+        $('strong').text(smethodNumber);
+      }else{
+        $('#hidetranx').show();
+        $('#Transaction_id').prop("disabled", false);
+      }
+    });
 
-         //select 2
-        
-        //
+
+    $('#paymentMathod').change(function(){
+     var pmethodText=$('#paymentMathod option:selected').text();
+     var pmethodmin=$('#paymentMathod option:selected').attr('id');
+     var sendVal=$('#paymentMathod option:selected').attr('class');
+     pmethodmin=parseInt(pmethodmin);
+
+     $('#apendPaymentMethod').text(pmethodText);
+
+
+     $('#recieveAmount').attr('min', pmethodmin);
+     $('#apendmin').text( '*minimum '+pmethodmin);
 
 
 
-        $('#sendMathod').change(function(){
-          var smethodText=$('#sendMathod option:selected').text();
-          var smethodNumber=$('#sendMathod option:selected').attr('id');
-           $('.paymentBy').text(smethodText);
-           if (smethodText=="Coinbase (Perfect Money 2") {
-            $('strong').text(smethodNumber);
-           } else{
-            $('strong').text('Cash Out From : '+smethodNumber+' Agent Number');
-           }
-           if (smethodText=="Brac Bank") {
-            $('#hidetranx').hide();
-            $('#Transaction_id').prop("disabled", true);
-            $('strong').text(smethodNumber);
-           }else{
-            $('#hidetranx').show();
-             $('#Transaction_id').prop("disabled", false);
-           }
-        });
-       
-        
-          $('#paymentMathod').change(function(){
-           var pmethodText=$('#paymentMathod option:selected').text();
-           var pmethodmin=$('#paymentMathod option:selected').attr('id');
-           var sendVal=$('#paymentMathod option:selected').attr('class');
-           pmethodmin=parseInt(pmethodmin);
-            
-           $('#apendPaymentMethod').text(pmethodText);
-            
-            
-              $('#recieveAmount').attr('min', pmethodmin);
-              $('#apendmin').text( '*minimum '+pmethodmin);
+     recieveAmount= $('#recieveAmount').val();
+     sendVal=parseFloat(sendVal);
+     recieveAmount=parseFloat(recieveAmount);
+     t=sendVal*recieveAmount;
+     $('#total').val(t);
+     //key up 
+     $('#recieveAmount').keyup(function(){
+      recieveAmount= $(this).val();
+      var sendVal=parseFloat($('#paymentMathod option:selected').attr('class'));
+      recieveAmount=parseFloat(recieveAmount);
+      t=sendVal*recieveAmount;
+      $('#total').val(t);
+    });
+//end keyup
+     $('#recieveAmount').change(function(){
+      recieveAmount= $(this).val();
 
-            
-            
-            recieveAmount= $('#recieveAmount').val();
-            sendVal=parseFloat(sendVal);
-            recieveAmount=parseFloat(recieveAmount);
-            t=sendVal*recieveAmount;
-            $('#total').val(t);
-            $('#recieveAmount').keyup(function(){
-                recieveAmount= $(this).val();
-                var sendVal=parseFloat($('#paymentMathod option:selected').attr('class'));
-                recieveAmount=parseFloat(recieveAmount);
-                t=sendVal*recieveAmount;
-                $('#total').val(t);
-                 
-              });
-            
-            $('#recieveAmount').change(function(){
-                recieveAmount= $(this).val();
-                
-                recieveAmount=parseFloat(recieveAmount);
-                t=sendVal*recieveAmount;
-                $('#total').val(t);
-                 
-              });
-            
-            });
-          
-        });
+      recieveAmount=parseFloat(recieveAmount);
+      t=sendVal*recieveAmount;
+      $('#total').val(t);
 
-    </script>
+    });
+
+   });
+
+  });
+
+</script>
     @endsection
  
       

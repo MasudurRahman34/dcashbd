@@ -38,6 +38,6 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     public function transaction(){
-    return $this->hasMany('App\model\transaction', 'userId')->orderBy('id', 'desc');
+    return $this->hasMany('App\model\transaction', 'userId');
     }
 }
