@@ -87,8 +87,8 @@
             <table class="table table-bordered" id="sampleTable">
               <thead>
                 <tr>
+                  <th>SL</th>
                   <th>last Update</th>
-                  <th>Id</th>
                   <th>Currency</th>
                   <th>Type</th>
                   <th>Rate</th>
@@ -100,12 +100,15 @@
                 </tr>
               </thead>
               <tbody>
+                @php
+                  $i=1;
+                @endphp
                 @foreach ($currencies as $cur)
                   {{-- expr --}}
                
                 <tr>
-                  <td>{{$cur->created_at}}</td>
-                  <td>{{$cur->id}}</td>
+                  <td>{{$i}}</td>
+                  <td>{{ date('d-M-y', strtotime($cur->created_at)) }}</td>
                   <td>{{$cur->name}}</td>
                   <td> @switch($cur->type)
                       @case(1)
@@ -202,6 +205,9 @@
                   
                     </td>
                 </tr>
+                @php
+                  $i++;
+                @endphp
                  @endforeach
                  
                   </tbody>
@@ -215,9 +221,7 @@
   @section('script')
   <script type="text/javascript" src="{{asset('admin/js/plugins/jquery.dataTables.min.js')}}"></script>
   <script type="text/javascript" src="{{asset('admin/js/plugins/dataTables.bootstrap.min.js')}}"></script>
-  <script type="text/javascript">$('#sampleTable').DataTable({
-     "order": [[ 3, "desc" ]]
-  });</script>
+  <script type="text/javascript">$('#sampleTable').DataTable();</script>
   <script type="text/javascript">
       $(document).ready(function(){
         $('#currencyType').change(function(){

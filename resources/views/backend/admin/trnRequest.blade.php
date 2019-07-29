@@ -12,41 +12,68 @@
         <div class="tile-body">
           <div class="tile-title-w-btn">
             <h3 class="title">All Item</h3>
-            {{date('Y-m-d')}}
+           
             <div class="btn-group">
-              <button class="btn btn-primary"><i class="fa fa-lg fa-plus"></i></button>
+              {{date('Y-M-d')}}
             </div>
           </div>
           <div class="table-responsive">
             <table class="table table-bordered" id="sampleTable">
               <thead>
                 <tr>
+                  <th>SL</th>
                   <th>Date</th>
-                  <th>UserId</th>
-                  <!-- <th>Name</th> -->
+                  <th>User_Name</th>
                   <th>Transaction Type</th>
-                  <th>Send Method</th>
-                  <th>Receive Method</th>
-                  <th>Number/Email</th>
-                  <th>Email</th>
+                  <th>Send_Method</th>
+                  <th>Receive_Method</th>
+                  <th>Send Account</th>
+                  <th>Recieve Account</th>
+                  <th>Send Amount</th>
+                  <th>Recieve Amount</th>
                   <th>Transaction ID</th>
-                  <th>Amount</th>
                   <th>Status</th>
                 </tr>
               </thead>
               <tbody>
+                @php
+                   $i=1;
+                @endphp
                 @foreach ($transactions as $trns)
                 <tr>
-                  <td>{{$trns->created_at}}</td>
-                  <td>{{$trns->userId}}</td>
-                  <td><a href="{{ route('userProfile', $trns->userId) }}">{{ $trns->user->id}}</a></td>
+                  <td>{{$i}}</td>
+                  <td>{{ date('d-m-y', strtotime($trns->created_at)) }}</td>
+                  <td><a href="{{ route('userProfile', $trns->userId) }}">{{ $trns->userName}}</a></td>
                   <td>{{$trns->type}}</td>
-                  <td>{{$trns->sendMethod}}</td>
-                  <td>{{$trns->recieveMethod}}</td>
-                  <td><span class="{{$trns->number==NULL ? 'text-warning': ''}}">{{$trns->number==NULL ?'x' :$trns->number}} </span></td>
-                  <td><span class="{{$trns->email==NULL ? 'text-warning': ''}}">{{$trns->email==NULL ?'x' :$trns->email}} </span></td>
-                  <td>{{$trns->trnasID}}</td>
-                  <td>{{$trns->amount}}</td>
+                  <td><img width="30" src="
+                    {{ asset('img/currency/'.$trns->sendMethod.'.jpg') }}"> {{ $trns->sendMethod}}</td>
+                  <td><img width="30" src="
+                    {{ asset('img/currency/'.$trns->recieveMethod.'.jpg') }}">{{ $trns->recieveMethod}}</td>
+                  <td class="text-center"><span class="{{$trns->sendAccount==NULL ? 'text-warning': ''}}">{{$trns->sendAccount==NULL ?'X' :$trns->sendAccount}} </span></td>
+                  <td><span class="{{$trns->recieveAccount==NULL ? 'text-warning': ''}}">{{$trns->recieveAccount==NULL ?'X' :$trns->recieveAccount}} </span></td>
+                   <td>{{number_format($trns->sendAmount,2) }}
+
+                    @switch($trns->type)
+                        @case('Buy')
+                         <span class="font-weight-bold" style=" font-family: -webkit-body;">&#2547</span></td>
+                            @break
+                        @default
+                          <span class="font-weight-bold" style=" font-family: -webkit-body;">$</span></td>
+                    @endswitch
+                    
+                    
+                   <td>{{number_format($trns->recieveAmount, 2)}}
+                       @switch($trns->type)
+                        @case('Buy')
+                            <span class="font-weight-bold" style=" font-family: -webkit-body;">&#x24</span></td>
+                            @break
+                    
+                        @default
+                              <span class="font-weight-bold" style=" font-family: -webkit-body;">&#2547</span></td>
+                    @endswitch
+
+                   </td>
+                   <td class="text-center"><span class="{{$trns->trnasID==NULL ? 'text-primary': ''}}">{{$trns->trnasID==NULL ?'X' :$trns->trnasID}} </span></td>
                   <td> <a  data-toggle="modal" data-target="#exampleModal{{$trns->id}}" class="{{$trns->status==0 ? 'badge badge-warning' : $trns->status==1 ? 'badge badge-success' : 'badge badge-danger'}}">{{$trns->status== 0 ? 'Requested' : ($trns->status==1 ? 'Accepted' :'Refused')}}</a>
                     <div class="modal fade" id="exampleModal{{$trns->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                       <div class="modal-dialog" role="document">
@@ -82,27 +109,34 @@
                                   </div>
                                 </div>
                                 <div class="form-group row comDiv" >
-                                  <label class="control-label col-md-4">Email</label>
+                                  <label class="control-label col-md-4">Send Account</label>
                                   <div class="col-md-8">
-                                    <input class="form-control" type="text" value="{{$trns->email}}" disabled="true">
+                                    <input class="form-control" type="text" value="{{$trns->sendAccount}}" disabled="true">
                                   </div>
                                 </div>
                                 <div class="form-group row comDiv" >
-                                  <label class="control-label col-md-4">Number</label>
+                                  <label class="control-label col-md-4">Recieve Account</label>
                                   <div class="col-md-8">
-                                    <input class="form-control" type="text" value="{{$trns->number}}" disabled="true">
+                                    <input class="form-control" type="text" value="{{$trns->recieveAccount}}" disabled="true">
+                                  </div>
+                                </div>
+                                <div class="form-group row addrDiv">
+                                  <label class="control-label col-md-4">Send Amount</label>
+                                  <div class="col-md-8">
+                                    <input class="form-control" type="text" value="{{$trns->sendAmount}}.
+                                    " disabled="true">
+                                  </div>
+                                </div>
+                                <div class="form-group row addrDiv">
+                                  <label class="control-label col-md-4">Recieve Amount</label>
+                                  <div class="col-md-8">
+                                    <input class="form-control" type="text" value="{{$trns->recieveAmount}}" disabled="true">
                                   </div>
                                 </div>
                                 <div class="form-group row addrDiv">
                                   <label class="control-label col-md-4">Transaction ID</label>
                                   <div class="col-md-8">
                                     <input class="form-control" type="text"  value="{{$trns->trnasID}}" disabled="true">
-                                  </div>
-                                </div>
-                                <div class="form-group row addrDiv">
-                                  <label class="control-label col-md-4">Amount</label>
-                                  <div class="col-md-8">
-                                    <input class="form-control" type="text" value="{{$trns->amount}}" disabled="true">
                                   </div>
                                 </div>
                                 <div class="form-group alert alert-dismissible alert-danger row" >
@@ -124,6 +158,9 @@
                           </form>
                         </td>
                       </tr>
+                      @php
+                        $i++
+                      @endphp
                       @endforeach
 
                     </tbody>
@@ -137,7 +174,5 @@
         @section('script')
         <script type="text/javascript" src="{{asset('admin/js/plugins/jquery.dataTables.min.js')}}"></script>
         <script type="text/javascript" src="{{asset('admin/js/plugins/dataTables.bootstrap.min.js')}}"></script>
-        <script type="text/javascript">$('#sampleTable').DataTable({
-          "order": [[ 3, "desc" ]]
-        });</script>
+        <script type="text/javascript">$('#sampleTable').DataTable();</script>
         @endsection

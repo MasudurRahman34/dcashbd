@@ -16,14 +16,15 @@ class CreateTransactionsTable extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('userId');
+            $table->string('userName');
             $table->string('type')->comment('buy, sell, exchange');
             $table->string('sendMethod');
             $table->string('recieveMethod');
-            $table->float('givenAmount');
-            $table->float('amount');
+            $table->float('sendAmount');
+            $table->float('recieveAmount');
             $table->string('trnasID')->nullable();
-            $table->string('number')->nullable();
-            $table->string('email')->nullable();
+            $table->string('sendAccount')->nullable();
+            $table->string('recieveAccount')->nullable();
             $table->integer('status')->default(0)->comment('0=requested, 1=completed');
             $table->timestamps();
         });

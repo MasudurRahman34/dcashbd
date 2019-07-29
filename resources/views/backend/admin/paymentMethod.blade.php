@@ -68,8 +68,8 @@
           <table class="table table-bordered" id="sampleTable">
             <thead>
               <tr>
+                <th>SL</th>
                 <th>last Update</th>
-                <th>Id</th>
                 <th>Payment method</th>
                 <th>Type</th>
                 <th>Address</th>
@@ -78,12 +78,13 @@
               </tr>
             </thead>
             <tbody>
+              @php
+                $i=1;
+              @endphp
               @foreach ($paymentmethods as $pm)
-              {{-- expr --}}
-
               <tr>
-                <td>{{$pm->created_at}}</td>
-                <td>{{$pm->id}}</td>
+                <td>{{$i}}</td>
+                <td>{{ date('d-M-y', strtotime($pm->created_at)) }}</td>
                 <td>{{$pm->name}}</td>
                 <td> @switch($pm->type)
                   @case(1)
@@ -162,6 +163,9 @@
 
                     </td>
                   </tr>
+                  @php
+                    $i++;
+                  @endphp
                   @endforeach
 
                 </tbody>

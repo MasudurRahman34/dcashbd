@@ -38,14 +38,15 @@ class TransactionController extends Controller
     {
          $trns=new transaction;
                 $trns->userId= Auth::user()->id;
+                $trns->userName= Auth::user()->name;
                 $trns->type= $request->type;
                 $trns->sendMethod= $request->sendMethod;
                 $trns->recieveMethod= $request->recieveMethod;
-                $trns->amount= $request->amount;
-                $trns->givenAmount= $request->givenAmount;
+                $trns->sendAmount= $request->sendAmount;
+                $trns->recieveAmount= $request->recieveAmount;
                 $trns->trnasID= $request->trnasID;
-                $trns->email= $request->email;
-                $trns->number= $request->number;
+                $trns->sendAccount= $request->sendAccount;
+                $trns->recieveAccount= $request->recieveAccount;
                 $trns->Save();
                 return redirect()->route('transaction');
                 /*return redirect()->route('currency');*/

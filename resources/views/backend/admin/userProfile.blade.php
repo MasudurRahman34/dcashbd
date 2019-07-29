@@ -128,6 +128,7 @@
             <table class="table table-bordered" id="sampleTable">
               <thead>
                 <tr>
+                    <th>SL.</th>   
                     <th>Date</th>   
                     <th>Transaction Type</th>
                     <th>Send Method</th>
@@ -141,11 +142,15 @@
                 </tr>
               </thead>
               <tbody>
+                @php
+                  $i=1;
+                @endphp
                 @foreach ($user->transaction as $trns)
                   {{-- expr --}}
                
                 <tr>
-                  <td>{{$trns->created_at}}</td>
+                  <td>{{$i}}</td>
+                  <td>{{ date('d-M-y', strtotime($trns->created_at)) }}</td>
                   <td>{{$trns->type}}</td>
                   <td>{{$trns->sendMethod}}</td>
                   <td>{{$trns->recieveMethod}}</td>
@@ -153,10 +158,13 @@
                   <td>{{$trns->email}}</td>
                   <td>{{$trns->trnasID}}</td>
                   <td>{{$trns->amount}}</td>
-                  <td> <a class=" {{$trns->status==0 ? 'badge badge-success' : 'badge badge-warning'}}">{{$trns->status==0 ? 'Requested' : $trns->status==1 ? 'Accepted' :'Refuse'}}</a></td>
+                  <td> <a class=" {{$trns->status==0 ? 'badge badge-success' : 'badge badge-warning'}}">{{$trns->status==0 ? 'Requested' : ($trns->status==1 ? 'Accepted' :'Refuse')}}</a></td>
                   <td><a class="btn btn-primary" href="#"><i class="fa fa-lg fa-edit"></i></a>
                     <a class="btn btn-danger" href="#"><i class="fa fa-lg fa-trash"></i></a></td>
                 </tr>
+                @php
+                  $i++;
+                @endphp
                  @endforeach
                  
                   </tbody>

@@ -40,8 +40,8 @@
                    <div class="col-md-8">
                     <select class="form-control col-md-8" id="paymentMathod" required>
                       <option ></option>
-                      @foreach (App\model\currency::where('type', '3')->get() as $cur)
-                            <option value="{{$cur->name}}" data-id="{{$cur->rate}}" id="{{$cur->minValue}}" class="{{$cur->address}}"><span id="{{$cur->rate}}"></span> {{$cur->name}}</option>
+                      @foreach (App\model\currency::where('type', '3')->orderBy('id', 'desc')->get() as $cur)
+                            <option value="{{$cur->name}}" data-id="{{$cur->rate}}" id="{{$cur->minValue}}" class="{{$cur->address}}" selected><span id="{{$cur->rate}}"></span> {{$cur->name}}</option>
                           @endforeach
                   </select>
                   </div>
@@ -54,8 +54,8 @@
                   <div class="col-md-8">
                     <select class="form-control col-md-8" id="sendMathod" required>
                       <option ></option>
-                      @foreach (App\model\currency::where('type', '3')->get() as $cur)
-                            <option value="{{$cur->name}}" data-id="{{$cur->rate}}" id="{{$cur->minValue}}" class="{{$cur->commission}}">{{$cur->name}}</option>
+                      @foreach (App\model\currency::where('type', '3')->orderBy('id', 'asc')->get() as $cur)
+                            <option value="{{$cur->name}}" data-id="{{$cur->rate}}" id="{{$cur->minValue}}" class="{{$cur->commission}}" selected>{{$cur->name}}</option>
                           @endforeach
                   </select>
                   </div>
@@ -63,26 +63,26 @@
                 <div class="form-group row">
                   <label class="control-label col-md-4">Send Amount<sup id="apendmin" style="font-size: 12px; color: red;"></sup></label>
                   <div class="col-md-8">
-                    <input class="form-control" type="number" name="givenAmount" value="0" id="recieveAmount" required>
+                    <input class="form-control" type="number" name="sendAmount" value="1" id="recieveAmount" step="any" required>
                   </div>
                 </div>
                 <div class="form-group row">
                   <label class="control-label col-md-4" >Recieve Amount </label>
                   <div class="col-md-8">
-                    <input class="form-control" type="number" name="amount" id="total" value="0.00" readonly>
+                    <input class="form-control" type="number" name="recieveAmount" id="total" value="" step="any" readonly>
                   </div>
                 </div>
                 <div class="form-group row">
                   <label class="control-label col-md-4"> <mark id="apendPaymentMethod"></mark> Email/ID </label>
                   
                   <div class="col-md-8">
-                    <input class="form-control" name="email" type="email" placeholder="Enter Email">
+                    <input class="form-control" name="sendAccount" type="email" placeholder="Enter Email">
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="control-label col-md-4"><span class="SendBy"> </span> Email/Id</label>
+                  <label class="control-label col-md-4"><span class="SendBy"> </span> Email/ID</label>
                   <div class="col-md-8">
-                    <input class="form-control" type="text" name="number" id="test" required>
+                    <input class="form-control" type="text" name="recieveAccount" id="test" required>
                   </div>
                 </div>
                 <div class="form-group row">
@@ -136,20 +136,60 @@
           width: '100%',
           templateSelection: formatState   
         });
+        //end select2
+        //while page load
+          var smethodText=$('#sendMathod option:selected').text();
+          var smethodVal=$('#sendMathod option:selected').attr('data-id');
+          $('#rcMethod').attr('value', smethodText);
+           var commission=parseFloat($('#sendMathod option:selected').attr('class'));
+           $('#apendRate').text('*1$ = '+smethodVal+ 'TK');
+           $('.SendBy').text(smethodText);
+           recieveAmount= $('#recieveAmount').val();
+            recieveAmount=parseFloat(recieveAmount);
+           t=recieveAmount*(1-commission);
+            $('#total').val(t);
+
+            $('#recieveAmount').keyup(function(){
+                recieveAmount= $(this).val();
+                recieveAmount=parseFloat(recieveAmount);
+                t=(recieveAmount*(1-commission)).toFixed(2);
+                $('#total').val(t);
+              });
+
+            $('#recieveAmount').change(function(){
+                recieveAmount= $(this).val();
+                recieveAmount=parseFloat(recieveAmount);
+                t=(recieveAmount*(1-commission)).toFixed(2);
+                $('#total').val(t);
+              });
+
+            //paymentment=sendmethod changing data
+            var pmethodText=$('#paymentMathod option:selected').text();
+           $('#snMethod').attr('value', pmethodText);
+           /*var pmethodValue=$('#paymentMathod option:selected').val();*/
+          var minValue=parseInt($('#paymentMathod option:selected').attr('id'));
+           var address=$('#paymentMathod option:selected').attr('class');
+           $('.paymentBy').text(pmethodText);
+          /* $('#apendRate').text('*1$ = '+smethodVal+ 'TK');*/
+           $('#apendPaymentMethod').text(pmethodText);
+           $('#recieveAmount').attr('min', minValue);
+                  $('#apendmin').text( '*minimum '+ minValue);
+                  $('strong').text(pmethodText +' Email/ID : '+address);
+        //end page load
+
+        //whild changing select function
 
       $(document).ready(function(){
         $('#sendMathod').change(function(){
           var smethodText=$('#sendMathod option:selected').text();
           var smethodVal=$('#sendMathod option:selected').attr('data-id');
           $('#rcMethod').attr('value', smethodText);
-
-
            var commission=parseFloat($('#sendMathod option:selected').attr('class'));
            $('#apendRate').text('*1$ = '+smethodVal+ 'TK');
            $('.SendBy').text(smethodText);
-           recieveAmount= $('#recieveAmount').attr('data-id');
+           recieveAmount= $('#recieveAmount').val();
             recieveAmount=parseFloat(recieveAmount);
-           t=recieveAmount*(1-.12);
+           t=recieveAmount*(1-commission);
             $('#total').val(t);
 
             $('#recieveAmount').keyup(function(){
@@ -168,7 +208,6 @@
           });
        
           $('#paymentMathod').change(function(){
-
            var pmethodText=$('#paymentMathod option:selected').text();
            $('#snMethod').attr('value', pmethodText);
            /*var pmethodValue=$('#paymentMathod option:selected').val();*/
@@ -176,9 +215,7 @@
            var address=$('#paymentMathod option:selected').attr('class');
            $('.paymentBy').text(pmethodText);
           /* $('#apendRate').text('*1$ = '+smethodVal+ 'TK');*/
-          
            $('#apendPaymentMethod').text(pmethodText);
-
            $('#recieveAmount').attr('min', minValue);
                   $('#apendmin').text( '*minimum '+ minValue);
                   $('strong').text(pmethodText +' Email/ID : '+address);

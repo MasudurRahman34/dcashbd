@@ -41,7 +41,7 @@
                         <select name="recieveMethod" class="form-control col-md-12" id="paymentMathod"  required>
                           <option></option>
                           @foreach (App\model\currency::where('type', '1')->get() as $cur)
-                            <option value="{{$cur->name}}" id="{{$cur->minValue}}" class="{{$cur->rate}}">{{$cur->name}}</option>
+                            <option value="{{$cur->name}}" id="{{$cur->minValue}}" class="{{$cur->rate}}" selected>{{$cur->name}}</option>
                           @endforeach
                       </select>
                       </div>
@@ -49,19 +49,19 @@
                     <div class="form-group row">
                       <label class="control-label col-md-4">Send Amount</label>
                       <div class="col-md-8">
-                        <input class="form-control" name="amount" type="text" id="total" readonly>
+                        <input class="form-control" name="sendAmount" type="text" id="total" step="any" readonly>
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="control-label col-md-4" >Recieve Amount <sup id="apendmin" style="font-size: 13px; color: red;"></sup></label>
                       <div class="col-md-8">
-                        <input class="form-control" type="number" name="givenAmount" value="1" id="recieveAmount"  required>
+                        <input class="form-control" type="number" name="recieveAmount" value="1" id="recieveAmount" step="any"  required>
                       </div>
                     </div>
                     <div class="form-group row">
                       <label class="control-label col-md-4"><span class="paymentBy"> </span> Number</label>
                       <div class="col-md-8">
-                        <input class="form-control" type="text" name="number" minlength="11" required>
+                        <input class="form-control" type="text" name="sendAccount" minlength="11" required>
                       </div>
                     </div>
                     <div class="form-group row" id="hidetranx">
@@ -74,7 +74,7 @@
                       <label class="control-label col-md-4"> <mark id="apendPaymentMethod"></mark> Email/ID </label>
                       
                       <div class="col-md-8">
-                        <input class="form-control" name="email" type="text" placeholder="Enter Email/ID" required>
+                        <input class="form-control" name="recieveAccount" type="text" placeholder="Enter Email/ID" required>
                       </div>
                     </div>
                     <div class="form-group row">
@@ -131,9 +131,52 @@
     templateSelection: formatState   
   });
 
+
 //End select2 image
   $(document).ready(function(){
+  //Selected data while page load
+ var smethodText=$('#sendMathod option:selected').text();
+      var smethodNumber=$('#sendMathod option:selected').attr('id');
+      $('.paymentBy').text(smethodText);
+      if (smethodText=="Coinbase (Perfect Money 2") {
+        $('strong').text(smethodNumber);
+      } else{
+        $('strong').text('Cash Out From : '+smethodNumber+' Agent Number');
+      }
+      if (smethodText=="Brac Bank") {
+        $('#hidetranx').hide();
+        $('#Transaction_id').prop("disabled", true);
+        $('strong').text(smethodNumber);
+      }else{
+        $('#hidetranx').show();
+        $('#Transaction_id').prop("disabled", false);
+      }
 
+      //payment method
+      var pmethodText=$('#paymentMathod option:selected').text();
+     var pmethodmin=$('#paymentMathod option:selected').attr('id');
+     var sendVal=$('#paymentMathod option:selected').attr('class');
+     pmethodmin=parseInt(pmethodmin);
+     $('#apendPaymentMethod').text(pmethodText);
+     $('#recieveAmount').attr('min', pmethodmin);
+     $('#apendmin').text( '*minimum '+pmethodmin);
+     recieveAmount= $('#recieveAmount').val();
+     sendVal=parseFloat(sendVal);
+     recieveAmount=parseFloat(recieveAmount);
+     t=sendVal*recieveAmount;
+     $('#total').val(t);
+
+     //recievemethod keyup
+     $('#recieveAmount').keyup(function(){
+      recieveAmount= $(this).val();
+      var sendVal=parseFloat($('#paymentMathod option:selected').attr('class'));
+      recieveAmount=parseFloat(recieveAmount);
+      t=sendVal*recieveAmount;
+      $('#total').val(t);
+    });
+  //end page load
+
+  //while change
 
     $('#sendMathod').change(function(){
       var smethodText=$('#sendMathod option:selected').text();
@@ -160,14 +203,9 @@
      var pmethodmin=$('#paymentMathod option:selected').attr('id');
      var sendVal=$('#paymentMathod option:selected').attr('class');
      pmethodmin=parseInt(pmethodmin);
-
      $('#apendPaymentMethod').text(pmethodText);
-
-
      $('#recieveAmount').attr('min', pmethodmin);
      $('#apendmin').text( '*minimum '+pmethodmin);
-
-
 
      recieveAmount= $('#recieveAmount').val();
      sendVal=parseFloat(sendVal);

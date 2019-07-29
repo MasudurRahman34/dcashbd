@@ -29,8 +29,8 @@
                    <div class="col-md-8">
                     <select class="form-control col-md-8" name="sendMethod" id="paymentMathod" required>
                       <option></option>
-                      @foreach (App\model\currency::where('type', '2')->get() as $cur)
-                            <option value="{{$cur->name}}" data-id="{{$cur->rate}}" id="{{$cur->minValue}}" class="{{$cur->address}}">{{$cur->name}}</option>
+                      @foreach (App\model\currency::where('type', '2')->orderBy('id', 'desc')->get() as $cur)
+                            <option value="{{$cur->name}}" data-id="{{$cur->rate}}" id="{{$cur->minValue}}" class="{{$cur->address}}" selected>{{$cur->name}}</option>
                           @endforeach
                   </select>
                   </div>
@@ -41,8 +41,8 @@
                   <div class="col-md-8">
                     <select class="form-control col-md-8" name="recieveMethod" id="sendMathod" required>
                       <option></option>
-                       @foreach (App\model\paymentmethod::where('type', '2')->get() as $pm)
-                            <option id="{{$pm->address}}" value="{{$pm->name}}">{{$pm->name}}</option>
+                       @foreach (App\model\paymentmethod::where('type', '2')->orderBy('id', 'desc')->get() as $pm)
+                            <option id="{{$pm->address}}" value="{{$pm->name}}" selected>{{$pm->name}}</option>
                           @endforeach
                   </select>
                   </div>
@@ -51,26 +51,26 @@
                 <div class="form-group row">
                   <label class="control-label col-md-4">Send Amount  <sup id="apendmin" style="font-size: 13px; color: red;"></sup></label>
                   <div class="col-md-8">
-                    <input class="form-control" type="number" name="givenAmount" id="recieveAmount" value="1"  required>
+                    <input class="form-control" type="number" name="sendAmount" id="recieveAmount" value="1" step="any" required>
                   </div>
                 </div>
                 <div class="form-group row">
                   <label class="control-label col-md-4" >Recieve Amount </label>
                   <div class="col-md-8">
-                    <input class="form-control" name="amount" type="number" id="total" readonly>
+                    <input class="form-control" name="recieveAmount" type="number" id="total" step="any" readonly>
                   </div>
                 </div>
                 <div class="form-group row">
                   <label class="control-label col-md-4"><span class="SendBy"> </span> Number</label>
                   <div class="col-md-8">
-                    <input class="form-control" type="number" type="text" minlength="11" name="trns_number"  required>
+                    <input class="form-control" type="number" minlength="11" name="recieveAccount"  required>
                   </div>
                 </div>
                  <div class="form-group row">
                   <label class="control-label col-md-4"> <mark id="apendPaymentMethod"></mark> Email/ID </label>
                   
                   <div class="col-md-8">
-                    <input class="form-control" name="email" type="text" placeholder="Enter Email/ID" required>
+                    <input class="form-control" name="sendAccount" type="text" placeholder="Enter Email/ID" required>
                   </div>
                 </div>
 
@@ -128,11 +128,45 @@
         });
 
       //End select2 image
+
+      //while page load
+      var smethodText=$('#sendMathod option:selected').text();
+           $('.SendBy').text(smethodText);
+      //end page loade
+
+      //while changing select
       $(document).ready(function(){
         $('#sendMathod').change(function(){
           var smethodText=$('#sendMathod option:selected').text();
            $('.SendBy').text(smethodText);
           });
+          var pmethodText=$('#paymentMathod option:selected').text();
+           var minValue=parseInt($('#paymentMathod option:selected').attr('id'));
+           var address=$('#paymentMathod option:selected').attr('class');
+           var pmethod=$('#paymentMathod option:selected').attr('data-id');
+  
+           var recieveAmount= $('#recieveAmount').val();
+
+           $('.paymentBy').text(pmethodText);
+            
+           $('#apendPaymentMethod').text(pmethodText);
+
+           $('#recieveAmount').prop('min', minValue);
+                  $('#apendmin').text( '*minimum' + minValue);
+                  $('strong').text('Email/id : '+ address);
+            
+            pmethod=parseFloat(pmethod);
+            recieveAmount=parseFloat(recieveAmount);
+            t=pmethod*recieveAmount;
+            $('#total').val(t);
+
+            $('#recieveAmount').keyup(function(){
+              recieveAmount= $(this).val();
+              var sendVal=parseFloat($('#paymentMathod option:selected').attr('data-id'));
+              recieveAmount=parseFloat(recieveAmount);
+              t=sendVal*recieveAmount;
+              $('#total').val(t);
+            });
        
           $('#paymentMathod').change(function(){
            var pmethodText=$('#paymentMathod option:selected').text();
