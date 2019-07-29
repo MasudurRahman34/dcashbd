@@ -44,7 +44,13 @@ Route::post('/trn/changeStatus/{id}', 'backend\adminController@trnsStatus')->nam
 Route::get('/userlist', 'backend\adminController@userlist')->name('userlist');
 Route::get('/adminlist', 'backend\adminController@adminlist')->name('adminlist');
 Route::get('/adminProfile', 'backend\adminController@profile')->name('adminProfile');
+//notice
 Route::get('/notice', 'backend\adminController@notice')->name('notice');
+Route::post('/notice/store', 'backend\NoticeController@store')->name('notice.store');
+Route::get('edit/notice/{id}', 'backend\NoticeController@edit')->name('notice.edit');
+Route::post('update/notice/{id}', 'backend\NoticeController@update')->name('notice.update');
+Route::post('/notice/delete/{id}', 'backend\NoticeController@destroy')->name('notice.delete');
+//end
 
 Auth::routes(['verify' => true]);
 Route::POST('/userlogout', 'auth\LoginController@userlogout')->name('userlogout');
@@ -54,4 +60,3 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');

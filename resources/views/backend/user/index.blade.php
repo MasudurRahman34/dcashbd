@@ -10,7 +10,15 @@
       <div class="app-title" style="margin-top:0px;">
         <div class="mx auto">
           <h1 style= "text-align: center !important; font-size: 40px !important;" >Wecome to  Dashboard !</h1>
+          <div>
+           <div style="border-left: 3px solid #FF9000; padding: 15px;">
+
+            @foreach (App\model\notice::where('type', 'Index Header')->get() as $element)
+            {!!$element->notice!!}
+            @endforeach
+          </div>
         </div>
+      </div>
       </div>
       <div class="row">
         <div class="col-md-6 col-lg-4">

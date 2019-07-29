@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\model\currency;
 use App\model\paymentmethod;
 use App\model\transaction;
+use App\model\notice;
 use App\User;
 
 class adminController extends Controller
@@ -65,7 +66,8 @@ class adminController extends Controller
     }
     public function notice()
     {
-        return view('backend.admin.notice');
+        $notices=notice::orderBy('id', 'desc')->get();
+        return view('backend.admin.notice')->with('notices', $notices);
     }
 
     /**

@@ -12,7 +12,12 @@
 <div class="app-title" style="margin-bottom: 2px;">
         <div>
           <h1 class="text-primary" style="background-color:#f5f5f5; padding: 5px;"><i class="fa fa-shopping-cart text-danger"></i> Buy Order</h1>
-          <p style="border-left: 3px solid #FF9000; padding: 15px;" > <span class="bg-warning">DCASH</span> এর সম্মানিত সদস্যগন Helpline = 01918375215 @ DCASH এর সম্মানিত সদস্যগন SKRILL / NETELLER 30 $ এর কম BUY করলে ট্রনজেকশন ফি 1$ বাদ যাবে। 30 $ বা তার বেশি BUY ক্ষেত্রে কোন ফি কাটা হবে না ।</p>
+          <div style="border-left: 3px solid #FF9000; padding: 15px;">
+            
+              @foreach (App\model\notice::where('type', 'Buy Header')->get() as $element)
+                {!!$element->notice!!}
+              @endforeach
+          </div>
         </div>
       </div>
       <div class="row">
@@ -88,6 +93,11 @@
                     </div>
                   <div class="tile-notify">
                     <div class="row">
+                      <div class="col-md-12 ">
+                        @foreach (App\model\notice::where('type', 'Buy Footer')->get() as $element)
+                        {!!$element->notice!!}
+                        @endforeach
+                      </div>
                       <div class="col-md-12 bg-warning">
                         <p class="text-center" style="padding: 10px; font-size: 15px;">নিচের <span class="paymentBy"> Bkash </span> নাম্বারে টাকা পাঠানোর পর Submit Button-এ ক্লিক করুন ।<br> <br>
                                   <strong class="bg-success" style="padding: 5px;">Cash Out From :

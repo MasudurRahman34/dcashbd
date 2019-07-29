@@ -134,6 +134,8 @@
                     </a><a class="btn btn-danger" href="#"><i class="fa fa-lg fa-trash"></i></a>
                     <div class="modal fade" id="exampleModal{{$cur->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                       <div class="modal-dialog" role="document">
+                        <form class="form-horizontal" action="{{ route('currency.edit', $cur->id) }}" method="POST">
+                          @csrf
                         <div class="modal-content">
                           <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">All Currency</h5>
@@ -144,9 +146,7 @@
                           <div class="modal-body">
                            <div class="tile">
                             <div class="tile-body">
-                              <form class="form-horizontal" action="{{ route('currency.edit', $cur->id) }}" method="POST">
-                                @csrf
-                               
+                                
                                 <div class="form-group row">
                                   <label class="control-label col-md-4">Currency Name</label>
                                   <div class="col-md-8">
@@ -183,8 +183,6 @@
                                     <input class="form-control" type="text" name="address" value="{{$cur->address}}">
                                   </div>
                                 </div>
-                               
-                                
                                 <div class="form-group alert alert-dismissible alert-danger row" >
                                   <label class="control-label col-md-5"><span>Are You Sure Change Status</span></label>
                                   <div class="col-md-7">
@@ -201,8 +199,11 @@
                                 <button type="submit" class="btn btn-primary">Save</button>
                               </div>
                             </div>
-                          </form>
-                  
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
                     </td>
                 </tr>
                 @php
