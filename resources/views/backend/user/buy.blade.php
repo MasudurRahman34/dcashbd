@@ -11,8 +11,8 @@
     </style>
 <div class="app-title" style="margin-bottom: 2px;">
         <div>
-          <h1><i class="fa fa-edit"></i> Buy Order</h1>
-          <p>DCASH এর সম্মানিত সদস্যগন Helpline = 01918375215 @ DCASH এর সম্মানিত সদস্যগন SKRILL / NETELLER 30 $ এর কম BUY করলে ট্রনজেকশন ফি 1$ বাদ যাবে। 30 $ বা তার বেশি BUY ক্ষেত্রে কোন ফি কাটা হবে না ।</p>
+          <h1 class="text-primary" style="background-color:#f5f5f5; padding: 5px;"><i class="fa fa-shopping-cart text-danger"></i> Buy Order</h1>
+          <p style="border-left: 3px solid #FF9000; padding: 15px;" > <span class="bg-warning">DCASH</span> এর সম্মানিত সদস্যগন Helpline = 01918375215 @ DCASH এর সম্মানিত সদস্যগন SKRILL / NETELLER 30 $ এর কম BUY করলে ট্রনজেকশন ফি 1$ বাদ যাবে। 30 $ বা তার বেশি BUY ক্ষেত্রে কোন ফি কাটা হবে না ।</p>
         </div>
       </div>
       <div class="row">

@@ -7,33 +7,22 @@
 
     @section('content')
     
-      <div class="app-title">
+      <div class="app-title" style="margin-top:0px;">
         <div class="mx auto">
           <h1 style= "text-align: center !important; font-size: 40px !important;" >Wecome to  Dashboard !</h1>
         </div>
       </div>
       <div class="row">
         <div class="col-md-6 col-lg-4">
-          <div class="widget-small primary coloured-icon"><i class="icon fa fa-shopping-cart fa-3x"></i>
-            <div class="info">
-              <h4>Buy Dollar</h4>
-              
-            </div>
+          <div class="widget-small" style="background: #51bcd4;"> <a href="" class="text-center text-uppercase" style="text-decoration: none;"><div style="padding: 25px; margin-left: 80px; color: white;"> <h4 class="text-center">Buy Dollar</h4><i class="fa fa-shopping-cart" style="font-size: 50px !important; "></i></div></a> 
           </div>
         </div>
         <div class="col-md-6 col-lg-4">
-          <div class="widget-small info coloured-icon"><i class="icon fa fa-briefcase fa-3x"></i>
-            <div class="info">
-              <h4>Sell Dollar</h4>
-              
-            </div>
+          <div class="widget-small" style="background: #4dc45f;"> <a href="" class="text-center text-uppercase" style="text-decoration: none;"><div style="padding: 25px; margin-left: 80px; color: white;"> <h4 class="text-center">Sell Dollar</h4><i class="fa fa-shopping-bag" style="font-size: 50px !important; "></i></div></a> 
           </div>
         </div>
         <div class="col-md-6 col-lg-4">
-          <div class="widget-small warning coloured-icon"><i class="icon fa fa-exchange fa-3x"> </i>
-            <div class="info">
-              <h4>Exchange Dollar</h4>
-            </div>
+            <div class="widget-small" style="background: #4aa2eb;"> <a href="" class="text-center text-uppercase" style="text-decoration: none;"><div style="padding: 25px; margin-left: 80px; color: white;"> <h4 class="text-center">Buy Dollar</h4><i class="fa fa-random" style="font-size: 50px !important; "></i></div></a> 
           </div>
         </div>
       </div>

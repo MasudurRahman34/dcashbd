@@ -10,8 +10,8 @@
     </style>
 <div class="app-title" style="margin-bottom: 2px;">
         <div>
-          <h1 class="text-primary"><i class="fa fa-edit text-danger"></i> Sell Order</h1>
-          <p> <span class="bg-warning"> DCASH</span> এর সম্মানিত সদস্যগন SKRILL / NETELLER 40$ বা তার বেশি SELL করতে চাইলে 01767227271 এই নাম্বারে অবশ্যই কল দিবেন ।
+          <h1 class="text-primary" style="background-color:#f5f5f5; padding: 5px;"><i class="fa fa-shopping-bag text-danger"></i> Sell Order</h1>
+          <p style="border-left: 3px solid #FF9000; padding: 15px;" > <span class="bg-warning"> DCASH</span> এর সম্মানিত সদস্যগন SKRILL / NETELLER 40$ বা তার বেশি SELL করতে চাইলে 01767227271 এই নাম্বারে অবশ্যই কল দিবেন ।
 			<span class="bg-warning"> DCASH</span> এর সম্মানিত সদস্যগণ SKrill / Neteller বিক্রয় করার ক্ষেত্রে মেইল না থাকলে  01767227271 এই নাম্বারে কল দিন । আমরা আপনার Skrill / Neteller উচ্চ মুল্যে ক্রয় করব। SKRILL / NETELLER 40$ বা তার বেশি বিক্রয় করার ক্ষেত্রে অবশ্যই কল দেবেন ।
 
 			Coinbase BTC SELL করার ক্ষেত্রে এই মেইলে পাঠাতে পারবেন   <span class="bg-warning">dcash@gmail.com</span>এবং address এ sell  করার ক্ষেত্রে pending active হওয়ার পর প্রেমেন্ট দেওয়া হয় । BTC Sell করার ক্ষেত্রে নোট অফশনে আপনার বিকাশ / রকেট নাম্বার অবশ্যই দেবেন।</p>

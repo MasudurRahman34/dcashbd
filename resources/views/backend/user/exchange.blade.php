@@ -10,7 +10,7 @@
     </style>
 <div class="app-title" style="margin-bottom: 2px;">
   <div>
-    <h1 class="text-primary"><i class="fa fa-edit text-danger"></i> Exchange Order</h1>
+   <h1 class="text-primary" style="background-color:#f5f5f5; padding: 5px;"><i class="fa fa-random text-danger"></i> Exchange Order</h1>
     <p>  Welcome to <span class="bg-warning"> DCASH</span> Exhange page</p>
     <ul>
        <li>1.Exchange করার পূর্বে ভালো করে নিয়ম যেনে নেওয়া উচিত।</li>
