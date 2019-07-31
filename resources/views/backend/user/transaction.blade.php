@@ -38,16 +38,6 @@
                   <td><img width="30" src="
                     {{ asset('img/currency/'.$trns->recieveMethod.'.jpg') }}">{{ $trns->recieveMethod}}</td>
                   
-                  
-
-                    @switch($trns->type)
-                        @case('Buy')
-                         <span class="font-weight-bold" style=" font-family: -webkit-body;">&#2547</span></td>
-                            @break
-                        @default
-                          <span class="font-weight-bold" style=" font-family: -webkit-body;">$</span></td>
-                    @endswitch
-                    
                     <td>{{$trns->recieveAccount}}
                    <td>{{number_format($trns->recieveAmount, 2)}}
                        @switch($trns->type)

@@ -5,8 +5,8 @@
                   <div class="col-md-3">
                     <div class="profile">
                       <div class="info" style="white-space: inherit !important;"><img class="user-img" src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/128.jpg">
-                        <h4>John Doe</h4>
-                        <p>Openning Date  2017-03-29</p>
+                        <h4>{{Auth::user()->name}}</h4>
+                        <p>Openning Date  {{date('d-m-y', strtotime(Auth::user()->created_at))}}</p>
                       </div>
                     </div>
                   </div>
@@ -16,24 +16,24 @@
                         <div class="timeline-post">
                          <div class="col-md-12">
                           <div class="tile">
-                            <h3 class="tile-title">User profile</h3>
+                            <h3 class="tile-title">My profile</h3>
                             <div class="table-responsive">
                             <table class="table table-striped">
                               <thead>
                                 <tr>
                                  
                                   <th>Name</th>
-                                  <th>Username myname</th>
                                   <th>Email</th>
                                   <th>Mobile Number</th>
+                                  <th>Address</th>
                                 </tr>
                               </thead>
                               <tbody>
                                 <tr>
-                                  <td>myname Mark</td>
-                                  <td> myname Otto</td>
-                                  <td>myname@gmail.com</td>
-                                  <td>903401489</td>
+                                  <td>{{Auth::user()->name}}</td>
+                                  <td>{{Auth::user()->email}}</td>
+                                  <td>{{Auth::user()->mobile}}</td>
+                                  <td>{{Auth::user()->address}}</td>
                                 </tr>
                               </tbody>
                             </table>

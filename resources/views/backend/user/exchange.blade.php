@@ -67,7 +67,7 @@ img.flag {
           <label class="control-label col-md-4"> <mark id="apendPaymentMethod"></mark> Email/ID </label>
 
           <div class="col-md-8">
-            <input class="form-control" name="sendAccount" type="email" placeholder="Enter Email">
+            <input class="form-control" name="sendAccount" type="text" placeholder="Enter Email">
           </div>
         </div>
         <div class="form-group row">

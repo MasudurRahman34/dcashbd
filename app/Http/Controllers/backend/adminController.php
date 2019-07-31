@@ -9,6 +9,8 @@ use App\model\paymentmethod;
 use App\model\transaction;
 use App\model\notice;
 use App\User;
+use App\Mail\statusNotification;
+use Mail;
 
 class adminController extends Controller
 {
@@ -35,7 +37,7 @@ class adminController extends Controller
     public function trnRequest()
     {
 
-        $transactions=transaction::orderBy('id', 'desc')->get();
+        $transactions=transaction::with('user')->get();
 
         return view('backend.admin.trnRequest')->with('transactions', $transactions);
     }
@@ -43,7 +45,18 @@ class adminController extends Controller
     {
         $trns=transaction::find($id);
         $trns->status=$request->status;
+        $userData=User::find($trns->userId);
+        $userEmail=$userData->email;
         $trns->save();
+
+        if($request->status==1){
+            $status='Transaction Success';
+            $trns->status='Transaction Success';
+        }elseif($request->status==2) {
+            $status='Transacion Refused';
+            $trns->status='Transaction Refused';
+        }
+        Mail::to($userEmail)->send(new statusNotification($trns, $status));
         return redirect()->route('trnRequest');
     }
     public function userlist()

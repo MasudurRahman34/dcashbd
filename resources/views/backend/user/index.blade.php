@@ -6,6 +6,7 @@
     @extends('backend.layouts.master')
 
     @section('content')
+     <div class="fakeLoader"></div>
     
       <div class="app-title" style="margin-top:0px;">
         <div class="mx auto">
@@ -46,6 +47,9 @@
         </div>
         </div>
       </div>
-    @endsection
+       @endsection
+  
+   
+
     <!-- Essential javascripts for application to work-->
   
