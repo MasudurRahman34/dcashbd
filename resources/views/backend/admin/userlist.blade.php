@@ -28,7 +28,7 @@
                   @foreach ($users as $user)
                     {{-- expr --}}
                   <tr>
-                    <td>{{$user->created_at}}</td>
+                    <td>{{date('d-m-y', strtotime($user->created_at))}}</td>
                     <td>{{$user->id}}</td>
                     <td>{{$user->name}}</td>
                     <td>{{$user->email}}</td>

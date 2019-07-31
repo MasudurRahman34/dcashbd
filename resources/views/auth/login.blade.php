@@ -4,18 +4,14 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Main CSS--><!-- Font-icon css-->
     @include ('backend.partials.css');
     <title>DBCASH USER</title>
   </head>
-  <body>
-    <section class="material-half-bg">
-      <div class="cover"></div>
-    </section>
+  <body background="https://ipdbse.com/public/css/images/sign-bg.jpg">
     <section class="login-content">
-      <div class="logo">
+      <!-- div class="logo">
         <h1>Dcash User</h1>
-      </div>
+      </div> -->
       <div class="login-box">
         <form class="login-form" method="POST" action="{{ route('login') }}">
            @csrf
@@ -70,10 +66,12 @@
     @include ('backend.partials.script');
     <script type="text/javascript">
       // Login Page Flipbox control
+      
       $('.login-content [data-toggle="flip"]').click(function() {
       	$('.login-box').toggleClass('flipped');
       	return false;
       });
     </script>
+   
   </body>
 </html>

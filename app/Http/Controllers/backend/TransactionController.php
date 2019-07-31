@@ -4,6 +4,8 @@ namespace App\Http\Controllers\backend;
 use App\Http\Controllers\Controller;
 use App\model\transaction;
 use Illuminate\Http\Request;
+use App\Mail\sendMail;
+use Mail;
 use Auth;
 
 class TransactionController extends Controller
@@ -48,6 +50,20 @@ class TransactionController extends Controller
                 $trns->sendAccount= $request->sendAccount;
                 $trns->recieveAccount= $request->recieveAccount;
                 $trns->Save();
+                $data=[
+                    'name'=>Auth::user()->name,
+                    'email'=>Auth::user()->email,
+                    'type'=>$request->type,
+                    'sendMethod'=>$request->sendMethod,
+                    'recieveMethod'=>$request->recieveMethod,
+                    'sendAmount'=>$request->sendAmount,
+                    'recieveAmount'=>$request->recieveAmount,
+                    'trnasID'=>$request->trnasID,
+                    'sendAccount'=>$request->sendAccount,
+                    'recieveAccount'=>$request->recieveAccount
+                ];
+                
+                Mail::to(Auth::user()->email)->send(new sendMail($data, $request->type));
                 return redirect()->route('transaction');
                 /*return redirect()->route('currency');*/
     }

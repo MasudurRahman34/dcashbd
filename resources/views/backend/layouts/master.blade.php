@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta name="description" content="dcashbd.com is currency exchanger merchandarize">
+    <meta name="description" content="dcashbd.com is currency exchange merchandarize">
     <!-- Twitter meta-->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:site" content="@dcashbd">

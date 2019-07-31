@@ -20,6 +20,7 @@
           <div class="table-responsive">
             <table class="table table-bordered" id="sampleTable">
               <thead>
+
                 <tr>
                   <th>SL</th>
                   <th>Date</th>
@@ -41,6 +42,7 @@
                 @endphp
                 @foreach ($transactions as $trns)
                 <tr>
+                 
                   <td>{{$i}}</td>
                   <td>{{ date('d-m-y', strtotime($trns->created_at)) }}</td>
                   <td><a href="{{ route('userProfile', $trns->userId) }}">{{ $trns->userName}}</a></td>
@@ -74,7 +76,7 @@
 
                    </td>
                    <td class="text-center"><span class="{{$trns->trnasID==NULL ? 'text-primary': ''}}">{{$trns->trnasID==NULL ?'X' :$trns->trnasID}} </span></td>
-                  <td> <a  data-toggle="modal" data-target="#exampleModal{{$trns->id}}" class="{{$trns->status==0 ? 'badge badge-warning' : $trns->status==1 ? 'badge badge-success' : 'badge badge-danger'}}">{{$trns->status== 0 ? 'Requested' : ($trns->status==1 ? 'Accepted' :'Refused')}}</a>
+                  <td> <a  data-toggle="modal" data-target="#exampleModal{{$trns->id}}" class="{{$trns->status== 0 ? 'badge badge-warning' : ($trns->status==1 ? 'badge badge-success' : 'badge badge-danger')}}">{{$trns->status== 0 ? 'Requested' : ($trns->status==1 ? 'Accepted' :'Refused')}}</a>
                     <div class="modal fade" id="exampleModal{{$trns->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                       <div class="modal-dialog" role="document">
                         <div class="modal-content">

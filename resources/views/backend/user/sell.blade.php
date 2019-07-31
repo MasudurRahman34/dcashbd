@@ -89,9 +89,9 @@
             <div class="tile-notify">
               <div class="row">
                  <div class="col-md-12 ">
-                  @foreach (App\model\notice::where('type', 'Sell Footer')->get() as $element)
-                {!!$element->notice!!}
-              @endforeach
+                    @foreach (App\model\notice::where('type', 'Sell Footer')->get() as $element)
+                    {!!$element->notice!!}
+                    @endforeach
                 </div>
                 <div class="col-md-12 bg-warning">
                   <p class="text-center" style="padding: 10px; font-size: 15px;">নিচের <span class="paymentBy"> </span> আইডি তে  টাকা পাঠানোর পর Submit Button-এ ক্লিক করুন ।<br> <br>

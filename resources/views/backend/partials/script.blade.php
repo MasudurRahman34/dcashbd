@@ -3,11 +3,21 @@
     <script src="{{ asset('admin/js/bootstrap.min.js') }}" ></script>
     <script src="{{ asset('admin/js/main.js') }} "></script>
     <!-- The javascript plugin to display page loading on top-->
-    <script src="{{ asset('admin/js/plugins/pace.min.js') }}" ></script>
+    
+    
     <script src='https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js' referrerpolicy="origin"></script>
     <!-- Page specific javascripts-->
-   
-    
+   <script src="{{ asset('admin/js/plugins/fakeLoader.min.js') }}" ></script>
+    <script type="text/javascript">
+        $(window).on('load',function(){
+                $.fakeLoader({
+                    timeToHide:600,
+                    bgColor:"#F71111",
+                    spinner:"spinner6"
+                });
+            });
+    </script>
+    <script src="{{ asset('admin/js/plugins/pace.min.js') }}" ></script>
     <!-- Google analytics script-->
     <!-- <script type="text/javascript">
       if(document.location.hostname == 'pratikborsadiya.in') {
