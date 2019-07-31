@@ -1,0 +1,180 @@
+@media screen and (min-width: 992px){
+p{
+	font-size: 16px;
+	line-height: 180%;
+}
+h1{
+	font-size: 40px;
+}
+.nav-background{
+	background: transparent;
+	top: 10px;
+	transition: .5s;
+}
+
+.nav-background.active{
+	background: #fff;
+	top: 0px;
+	transition: .5s;
+	box-shadow: 0px 1px 2px #888;
+}
+.nav-background.active span{color: #000 !important;}
+
+.nav-background.active-single{
+	background: linear-gradient(45deg, #1F660A 0, #BCCF04 100%);
+}
+.nav-background ul.nav-ul li a{
+	/*color: #fff;*/
+	padding: 20px 10px;	
+	padding: 20px 0px 0px;
+    margin: 0 10px 0;
+}
+.btn-new{border: 1px solid #fff;}
+.nav-background ul.nav-ul li a:hover{
+	color: #fff;	
+}
+.nav-background.active ul.nav-ul li a{
+	color: #9C27B0;
+}
+.nav-background.active ul.nav-ul li a.btn-new{
+	border: 1px solid #9C27B0;
+}
+/*.nav-background.active ul.nav-ul li a:hover{
+	color: #fff;
+}/*
+.nav-background .nav-brand {
+	color: #fff;
+	padding: 17px 10px;
+}
+
+
+.carousel-control .icon-prev, .carousel-control .glyphicon-chevron-left {	
+	width: 40px;
+	height: 50px;	
+}
+
+
+.carousel-control .icon-next, .carousel-control .glyphicon-chevron-right {
+	
+	width: 40px;
+	height: 50px;
+	
+}
+
+.carousel-caption h1{	
+	font-size: 60px;
+	font-family: 'Roboto', sans-serif;
+	font-weight: 900;
+}
+.carousel-caption p{	
+	font-size: 20px;
+}
+
+.carousel-caption ul{	
+	display: block;
+}
+
+
+
+/* service start */
+.service{
+		padding: 50px 0px;
+	}
+/* service end */
+
+
+
+
+/* product start */
+.product{
+		padding: 50px 0px;
+	}
+/* product end */
+
+
+
+/* about start */
+.about{
+		padding: 50px 0px;
+	}
+/* about end */
+
+/* vision-mission start */
+.vision-mission{
+		padding: 50px 0px;
+	}
+/* vision-mission end */
+
+/* latest Event start */
+.latest-event{
+		padding: 50px 0px;
+	}
+/* latest-event end */
+
+
+
+/* show-rooms start */
+.show-rooms{
+		padding: 50px 0px;
+	}
+/* show-rooms end */
+
+
+/* team start */
+.team{
+		padding: 50px 0px;
+	}
+/* team */
+
+
+
+
+/* primary footer start */
+.primary{
+		padding: 50px 0px;
+	}
+
+.primary .pri-item .post{	
+	width: 100%;
+	height: 80px;
+	}
+/* primary footer end */
+
+
+
+
+.contact{	
+	padding: 50px 0px;
+}
+
+.secondary .social-media ul{	
+	text-align: right;
+}
+
+
+
+
+
+}
+
+
+
+@media screen and (min-width: 768px){
+	.carousel-control .icon-prev, .carousel-control .glyphicon-chevron-left {		
+		width: 40px;
+		height: 50px;		
+	}
+
+	.carousel-control .icon-next, .carousel-control .glyphicon-chevron-right {		
+		width: 40px;
+		height: 50px;		
+	}
+
+	/*.carousel-caption{right: 0 !important;}*/
+}
+
+@media screen and (max-width: 992px){
+	.container{
+		width: 100%;
+	}
+}

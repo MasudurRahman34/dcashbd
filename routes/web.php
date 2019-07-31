@@ -14,6 +14,10 @@
 Route::get('/', function () {
     return view('welcome');
 });
+//frontend
+Route::get('/d', 'frontend\frontController@index')->name('dcash');
+
+//
 //user
 Route::get('/user', 'backend\userController@index')->name('user')->middleware('verified');
 Route::get('/buy', 'backend\userController@buy')->name('buy');

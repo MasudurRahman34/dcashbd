@@ -1,0 +1,142 @@
+@import url(https://fonts.googleapis.com/css?family=Raleway);
+body{
+  /*background: #D84315;*/
+  background-image: url('../images/bg-new.jpg');
+  /*background-image: url('http://www.intrawallpaper.com/static/images/518164-backgrounds.jpg');*/
+  /*background-image: url('../images/blue-vector-wallpaper.jpg');*/
+  background-size:cover;
+}
+form.sign{
+  background: rgba(39, 117, 200,0.2);
+  border: 1px solid rgba(39, 117, 200,0.8);
+  border-radius: 4px;
+  margin: 30vh auto 0;
+  max-width: 300px;
+  padding: 30px;
+  width: 100%;
+}
+form.sign input[type="text"]::-webkit-input-placeholder,
+form.sign input[type="password"]::-webkit-input-placeholder,
+form.sign input[type="email"]::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: #fff;
+  font-weight: bold;
+}
+form.sign input[type="text"]::-moz-placeholder,
+form.sign input[type="password"]::-moz-placeholder,
+form.sign input[type="email"]::-moz-placeholder {  /* Firefox 19+ */
+   color: #fff;
+   font-weight: bold;
+}
+form.sign h3{
+  margin-top: 0;
+  color: #2775C8;
+  font-family: 'Raleway', sans-serif;
+}
+form.sign h3 i{
+  color: #2775C8;
+}
+form.sign span{
+  position: absolute;
+  padding-top: 12px;
+  padding-left: 8px;
+  color: #fff;
+}
+form.sign input[type="text"],
+form.sign input[type="password"],
+form.sign input[type="email"],
+form.sign select{
+  display: block;
+  padding: 12px 27px;
+  border: 1px solid rgba(39, 117, 200,0.5);
+  border-radius: 2px;
+  margin-bottom: 10px;
+  width: 81%;
+  background: rgba(39, 117, 200,0.4);
+  color: #fff;
+}
+form.sign select option{
+  background: #fff;
+  color: #000;
+  padding: 3px 5px;
+}
+form.sign input[type="text"]:focus,
+form.sign input[type="password"]:focus,
+form.sign input[type="email"]:focus{
+  border: 1px solid #1EA9E9;
+}
+form.sign input::-webkit-input-placeholder {
+   padding-left: 5px;
+   color: rgba(0,0,0,0.4);
+}
+form.sign input::-moz-placeholder {
+   padding-left: 5px;
+   color: rgba(0,0,0,0.4);
+}
+form.sign input[type="submit"]{
+  background: #2775C8;
+  color: #fff;
+  padding: 8px 15px;
+  border: 1px solid #2775C8 !important;
+  border-radius: 2px;
+  cursor: pointer;
+  font-weight: bold;
+}
+form.sign input[type="submit"]:hover{
+  background: #2775C8;
+  /*border: 1px solid #1EA9E9;*/
+  color: #fff;
+  box-shadow: 0 6px 8px 0 rgba(0,0,0,0.24), 0 8.5px 25px 0 rgba(0,0,0,0.19);
+}
+form.sign a{
+  text-decoration: none;
+  color: #2775C8;
+  float: right;
+  line-height: 32px;
+  padding-top: 0;
+  font-size: 14px;
+}
+a.a{
+  text-decoration: none;
+  color: #2775C8;
+  text-align: center;
+  display: block;
+  padding-top: 18px;
+  font-family: 'Raleway', sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  /* text-shadow: 1px 1px 8px #2775C8; */
+}
+.alert-custom{
+  background: #fff;
+  width: 100%;
+  max-width: 330px;
+  margin: 0 auto;
+  padding: 15px;
+  border-radius: 4px;
+  box-shadow: 0 0 2px 10px #156489;
+  text-align: center;
+}
+.alert-custom h3{
+  margin: 0;
+}
+.alert-custom p{
+  margin: 0;
+  font-size: 14px;
+  line-height: 22px;
+}
+.alert-custom-success{
+  background: #DFF0D8;
+  color: #3C767B;
+}
+.alert-custom-info{
+  background: #D9EDF7;
+  color: #31708F;
+}
+.alert-custom-warning{
+  background: #FCF8E3;
+  color: #8A6D3B;
+}
+.alert-custom-danger{
+  background: #F2DEDE;
+  color: #A94442;
+}
