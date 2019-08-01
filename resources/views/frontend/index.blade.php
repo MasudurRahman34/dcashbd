@@ -11,7 +11,7 @@
 	<title>dcashbd | Home</title>
 
 
-    <link rel="icon" href="{{asset('frontend/public/img/logo2.png')}}" >
+    <link rel="icon" href="{{asset('frontend/public/img/logo.png')}}" >
 
     <!-- <link rel="stylesheet" type="text/css" href="{{ asset('admin/css/fakeLoader.min.css') }}"> -->
 
@@ -207,20 +207,22 @@
                 </span>
             </div>
 
-	          <div class="desktop info" style="width: 50%;">Helpline: your mobile OR my mobile | Skype: skype</div>
+	          <div class="desktop info" style="width: 50%;">Helpline: 01715222938 OR 01650271792 | Skype: skype</div>
 	      </div>
 
 	      <ul class="nav navbar-nav navbar-right nav-ul">
 
-            <li><a href='{!! url('#home') !!}'>Home</a></li>
+            <li><a href="{!! url('#home') !!}">Home</a></li>
+            <li><a href="{!! url('#trns') !!}">LT Transaction</a></li>
 	        <!--<li><a href="index.html#home">Home</a></li> -->
-	        <li><a href='{!! url('#service') !!}'>Service</a></li>
-	        <li><a href="{!! url('#about') !!}">About</a></li>
+	        <li><a href="{!! url('#service') !!}">Service</a></li>
+            <li><a href="{!! url('#about') !!}">About</a></li>
+	        <li><a href="{!! route('paymentProf') !!}">Payment Prof</a></li>
 	        <!-- <li><a href="home/faq.html">FAQs</a></li> -->
-	        <li><a href="home/payment_proof.html">Payment Proof</a></li>
+	       
 	        <li><a href="{!! url('#contact') !!}">Contact</a></li>
-	        <li><a class="btn-new" style="margin-right: 5px;" href="access/subscriber/login.html">Sign In</a></li>
-	        <li><a class="btn-new" href="signup.html">Sign Up</a></li>
+	        <li><a class="btn-new" style="margin-right: 5px;" href="{{route('login')}}">Sign In</a></li>
+	        <li><a class="btn-new" href="{{route('register')}}">Sign Up</a></li>
 	      </ul>
 	    </div><!-- /.navbar-collapse -->
 	  </div><!-- /.container-fluid -->
@@ -496,7 +498,7 @@ a:hover{text-decoration: none;}
 
 
 <!-- last ten transaction start -->
-    <section id="service" class="product" style="background: rgba(120, 192, 30,0.05);">
+    <section id="trns" class="product" style="background: rgba(120, 192, 30,0.05);">
         <div class="container">
             <div class="row">
                 
@@ -520,123 +522,37 @@ a:hover{text-decoration: none;}
                                 <th>Amount</th>
                                 <th>Date</th>
                                 <th>Status</th>
-                            </tr>
-                                                            <tr>
-                                    <td>1</td>
-                                    <td>
-                                        <img width="30" src="public/images/method_iocn/bKash.jpg">
-                                        bKash                                    </td>
-                                    <td>
-                                        <img width="30" src="public/images/method_iocn/perfect_money.jpg">
-                                        perfect money                                    </td>
-                                    <td>10.00 $</td>
-                                    <td>19-07-2019</td>
-                                    <td>
-                                        Processed                                    </td>
-                                </tr>
-                                                            <tr>
-                                    <td>2</td>
-                                    <td>
-                                        <img width="30" src="public/images/method_iocn/rocket.jpg">
-                                        rocket                                    </td>
-                                    <td>
-                                        <img width="30" src="public/images/method_iocn/perfect_money.jpg">
-                                        perfect money                                    </td>
-                                    <td>10.50 $</td>
-                                    <td>19-07-2019</td>
-                                    <td>
-                                        Processed                                    </td>
-                                </tr>
-                                                            <tr>
-                                    <td>3</td>
-                                    <td>
-                                        <img width="30" src="public/images/method_iocn/bKash.jpg">
-                                        bKash                                    </td>
-                                    <td>
-                                        <img width="30" src="public/images/method_iocn/skrill.jpg">
-                                        skrill                                    </td>
-                                    <td>11.00 $</td>
-                                    <td>19-07-2019</td>
-                                    <td>
-                                        Processed                                    </td>
-                                </tr>
-                                                            <tr>
-                                    <td>4</td>
-                                    <td>
-                                        <img width="30" src="public/images/method_iocn/bKash.jpg">
-                                        bKash                                    </td>
-                                    <td>
-                                        <img width="30" src="public/images/method_iocn/skrill.jpg">
-                                        skrill                                    </td>
-                                    <td>40.00 $</td>
-                                    <td>19-07-2019</td>
-                                    <td>
-                                        Processed                                    </td>
-                                </tr>
-                            
+                                @php
+                   $i=1;
+                @endphp
+                                @foreach (App\model\transaction::where('status', 1)->limit(10)->latest('updated_at')->get() as $trns)
+                                   
+                            <tr>
+                    <td>{{$i}}</td>
+                  
+                  <td><img width="30" src="
+                    {{ asset('img/currency/'.$trns->sendMethod.'.jpg') }}"> {{ $trns->sendMethod}}</td>
+                  <td><img width="30" src="
+                    {{ asset('img/currency/'.$trns->recieveMethod.'.jpg') }}">{{ $trns->recieveMethod}}</td>
+                   <td>{{number_format($trns->recieveAmount, 2)}}
+                       @switch($trns->type)
+                        @case('Buy')
+                            <span class="font-weight-bold" style=" font-family: -webkit-body;">&#x24</span></td>
+                            @break
+                    
+                        @default
+                              <span class="font-weight-bold" style=" font-family: -webkit-body;">&#2547</span></td>
+                    @endswitch
 
-
-                            
-                                                            <tr>
-                                    <td>5</td>
-                                    
-                                    <td>
-                                        <img width="30" src="public/images/method_iocn/skrill.jpg">
-                                        skrill                                    </td>
-                                    <td>
-                                        <img width="30" src="public/images/method_iocn/bKash.jpg">
-                                        bKash                                    </td>
-
-                                    <td>69.00 $</td>
-                                    <td>19-07-2019</td>
-                                    <td>
-                                        Processed                                    </td>
-                                </tr>
-                                                            <tr>
-                                    <td>6</td>
-                                    
-                                    <td>
-                                        <img width="30" src="public/images/method_iocn/skrill.jpg">
-                                        skrill                                    </td>
-                                    <td>
-                                        <img width="30" src="public/images/method_iocn/brac_bank.jpg">
-                                        brac bank                                    </td>
-
-                                    <td>274.00 $</td>
-                                    <td>19-07-2019</td>
-                                    <td>
-                                        Processed                                    </td>
-                                </tr>
-                                                            <tr>
-                                    <td>7</td>
-                                    
-                                    <td>
-                                        <img width="30" src="public/images/method_iocn/perfect_money.jpg">
-                                        perfect money                                    </td>
-                                    <td>
-                                        <img width="30" src="public/images/method_iocn/rocket.jpg">
-                                        rocket                                    </td>
-
-                                    <td>20.00 $</td>
-                                    <td>19-07-2019</td>
-                                    <td>
-                                        Processed                                    </td>
-                                </tr>
-                                                            <tr>
-                                    <td>8</td>
-                                    
-                                    <td>
-                                        <img width="30" src="public/images/method_iocn/neteller.jpg">
-                                        neteller                                    </td>
-                                    <td>
-                                        <img width="30" src="public/images/method_iocn/bKash.jpg">
-                                        bKash                                    </td>
-
-                                    <td>11.00 $</td>
-                                    <td>19-07-2019</td>
-                                    <td>
-                                        Processed                                    </td>
-                                </tr>
+                   </td>
+                   <td>{{ date('d-m-y', strtotime($trns->updated_at)) }}</td>
+        
+                    <td><span class="{{$trns->status==0 ? 'badge badge-warning': ($trns->status==1 ? 'badge badge-dark' : 'badge badge-danger')}}"> {{$trns->status==0 ? 'Requested': ($trns->status==1 ? 'Completed' : 'Refused')}}</span></td>
+                  </tr>
+                @php
+                  $i++;
+                @endphp
+                   @endforeach
                             
 
 
@@ -1052,7 +968,7 @@ a:hover{text-decoration: none;}
 				<div class="content">
 					<div class="col-sm-6 wow bounceInLeft">
 					   						<div class="row">
-						  <form action="https://tdbsewallet.com/home/visitor_comments" method="post" accept-charset="utf-8">								<div class="col-md-6">
+						  <form accept-charset="utf-8">								<div class="col-md-6">
 									<input type="text" name="name" required placeholder="Enter Your Name">
 								</div>
 

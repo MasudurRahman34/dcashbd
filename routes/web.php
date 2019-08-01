@@ -16,6 +16,7 @@ Route::get('/', function () {
 });
 //frontend
 Route::get('/d', 'frontend\frontController@index')->name('dcash');
+Route::get('/paymentProf', 'frontend\frontController@paymentProf')->name('paymentProf');
 
 //
 //user

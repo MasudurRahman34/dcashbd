@@ -16,6 +16,10 @@ class frontController extends Controller
     {
         return view('frontend.index');
     }
+     public function paymentProf()
+    {
+        return view('frontend.paymentProf');
+    }
 
     /**
      * Show the form for creating a new resource.
